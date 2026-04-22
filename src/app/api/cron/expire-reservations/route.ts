@@ -4,8 +4,9 @@ import { NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
 
 /**
- * Vercel Cron: expira reservas com `expires_at` passado e repõe presentes.
- * Variável **CRON_SECRET**: mesmo valor em Vercel → Cron → Authorization header.
+ * Cron (ex.: Netlify Scheduled Function em `netlify/functions/expire-reservations.mjs`):
+ * expira reservas com `expires_at` passado e repõe presentes.
+ * **CRON_SECRET**: o mesmo valor nas env vars; pedido com `Authorization: Bearer …`.
  */
 export async function GET(request: Request) {
   const secret = process.env.CRON_SECRET;

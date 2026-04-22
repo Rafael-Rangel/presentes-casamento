@@ -17,13 +17,13 @@ Rotas principais: `/` (três entradas), `/presentes` (lista pública), `/convite
 
 **SMTP (Gmail):** podes usar `smtp.gmail.com` e porta `587` com **palavra-passe de aplicação** — nunca commits essa palavra-passe; se a expuseres, revoga no Google e gera outra.
 
-**Fotos do casal:** estão em [`imagens_casal/`](imagens_casal/) na raiz. O script [`scripts/copy-couple-photos.mjs`](scripts/copy-couple-photos.mjs) copia essa pasta para `public/imagens_casal` antes de `npm run dev` e antes de `npm run build` (`prebuild`). Assim o deploy na Vercel não depende de symlinks fora de `public/`.
+**Fotos do casal:** estão em [`imagens_casal/`](imagens_casal/) na raiz. O script [`scripts/copy-couple-photos.mjs`](scripts/copy-couple-photos.mjs) copia essa pasta para `public/imagens_casal` antes de `npm run dev` e antes de `npm run build` (`prebuild`). Assim o deploy (ex. Netlify) não depende de symlinks fora de `public/`.
 
-### Deploy na Vercel
+### Deploy na Netlify
 
-1. Liga o repositório ao projeto Vercel; **Build Command** `npm run build` (o `prebuild` corre a cópia das fotos).
-2. **Environment Variables** (Production + Preview): `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `NEXT_PUBLIC_SITE_URL` (domínio final com `https://`), `ADMIN_PASSWORD`, `ADMIN_SESSION_SECRET`, `NEXT_PUBLIC_WEDDING_DATE` (opcional), variáveis SMTP se usares envio de convites, e **`CRON_SECRET`**.
-3. Com `CRON_SECRET` definido, a Vercel envia `Authorization: Bearer <CRON_SECRET>` para os crons definidos em [`vercel.json`](vercel.json) (rota [`/api/cron/expire-reservations`](src/app/api/cron/expire-reservations/route.ts)).
+1. **New site from Git** → escolhe o repositório. A Netlify deteta **Next.js**; **Build command** `npm run build` (o `prebuild` copia `imagens_casal` → `public/imagens_casal`). **Publish directory**: deixa **vazio** (runtime Next.js/OpenNext).
+2. **Environment variables** (Production e, se quiseres, Deploy previews): `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `NEXT_PUBLIC_SITE_URL` (domínio final com `https://` — recomendado mesmo que a Netlify forneça `URL`), `ADMIN_PASSWORD`, `ADMIN_SESSION_SECRET`, `NEXT_PUBLIC_WEDDING_DATE` (opcional), SMTP se usares convites por email, e **`CRON_SECRET`** (string longa aleatória).
+3. **Cron de reservas:** em produção, a função agendada [`netlify/functions/expire-reservations.mjs`](netlify/functions/expire-reservations.mjs) (ver [`netlify.toml`](netlify.toml)) corre **de hora em hora** e chama [`/api/cron/expire-reservations`](src/app/api/cron/expire-reservations/route.ts) com `Authorization: Bearer <CRON_SECRET>`. As funções agendadas **só correm no deploy de produção** publicado (não em branch previews).
 4. Em **Supabase → Authentication → URL Configuration**, adiciona `https://<teu-dominio>/auth/callback` às **Redirect URLs**.
 
 ### Supabase CLI (opcional)
@@ -119,11 +119,11 @@ Fluxo lógico: validar input → garantir que o presente está `available` → c
 
 ### “Drops” mensais
 
-Ideia: job (cron da Vercel, Supabase **pg_cron**, ou Edge Function agendada) que altera `gifts.status` ou `release_month` consoante a data — no original isto era só um stub.
+Ideia: job (cron na Netlify, Supabase **pg_cron**, ou Edge Function agendada) que altera `gifts.status` ou `release_month` consoante a data — no original isto era só um stub.
 
 ### Expiração de reservas
 
-Implementado: função SQL `run_expire_stale_reservations()` (ver `schema.sql` / migração `20260223140000`) chamada pela rota `/api/cron/expire-reservations` com **service role**, agendada na Vercel via `vercel.json`.
+Implementado: função SQL `run_expire_stale_reservations()` (ver `schema.sql` / migração `20260223140000`) chamada pela rota `/api/cron/expire-reservations` com **service role**, agendada na **Netlify** via função em `netlify/functions/expire-reservations.mjs` + `netlify.toml`.
 
 ### Web Push
 
@@ -145,7 +145,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=
 NEXT_PUBLIC_SITE_URL=               # ex.: http://localhost:3000 (magic link)
 NEXT_PUBLIC_WEDDING_DATE=           # opcional — texto na home
 SUPABASE_SERVICE_ROLE_KEY=          # só servidor
-CRON_SECRET=                        # Vercel Cron — só produção/preview na Vercel
+CRON_SECRET=                        # Netlify: função agendada + rota /api/cron/*
 NEXT_PUBLIC_VAPID_PUBLIC_KEY=       # se usares push
 VAPID_PRIVATE_KEY=                  # só servidor
 ```

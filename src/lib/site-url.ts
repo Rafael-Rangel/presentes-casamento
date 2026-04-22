@@ -2,13 +2,23 @@ import { headers } from "next/headers";
 
 /**
  * URL absoluta do site (magic link, emails, links em convites).
- * Em produção na Vercel define **NEXT_PUBLIC_SITE_URL** (domínio final com https).
- * Em previews, se não estiver definido, usa **VERCEL_URL** (https).
+ * Define **NEXT_PUBLIC_SITE_URL** em produção (domínio final com https).
+ * Fallbacks: **URL** (Netlify), **DEPLOY_PRIME_URL**, **VERCEL_URL** (previews).
  */
 export async function getSiteUrl(): Promise<string> {
   const explicit = process.env.NEXT_PUBLIC_SITE_URL?.trim().replace(/\/$/, "");
   if (explicit?.startsWith("http")) {
     return explicit;
+  }
+
+  const netlifyUrl = process.env.URL?.trim();
+  if (netlifyUrl?.startsWith("http")) {
+    return netlifyUrl.replace(/\/$/, "");
+  }
+
+  const deployPrime = process.env.DEPLOY_PRIME_URL?.trim();
+  if (deployPrime?.startsWith("http")) {
+    return deployPrime.replace(/\/$/, "");
   }
 
   const vercel = process.env.VERCEL_URL?.trim();
@@ -28,6 +38,14 @@ export function getSiteUrlSync(): URL | undefined {
   const explicit = process.env.NEXT_PUBLIC_SITE_URL?.trim();
   if (explicit?.startsWith("http")) {
     return new URL(explicit);
+  }
+  const netlifyUrl = process.env.URL?.trim();
+  if (netlifyUrl?.startsWith("http")) {
+    return new URL(netlifyUrl);
+  }
+  const deployPrime = process.env.DEPLOY_PRIME_URL?.trim();
+  if (deployPrime?.startsWith("http")) {
+    return new URL(deployPrime);
   }
   const vercel = process.env.VERCEL_URL?.trim();
   if (vercel) {

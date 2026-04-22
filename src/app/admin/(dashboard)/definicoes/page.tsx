@@ -8,7 +8,7 @@ export default function AdminDefinicoesPage() {
         <h1 className="admin-page-title">Definições</h1>
         <p className="admin-page-sub">
           Variáveis no ficheiro <code className="rounded bg-canvas px-1 font-mono text-xs">.env.local</code>{" "}
-          ou na Vercel — nunca commits com segredos.
+          ou na Netlify — nunca commits com segredos.
         </p>
       </header>
 
@@ -71,24 +71,29 @@ export default function AdminDefinicoesPage() {
           </span>
           <div>
             <h2 className="font-display text-lg font-medium text-ink">
-              Reservas a expirar (cron na Vercel)
+              Reservas a expirar (cron na Netlify)
             </h2>
             <p className="mt-2 text-sm leading-relaxed text-muted">
               O ficheiro{" "}
               <code className="rounded bg-canvas px-1 font-mono text-xs">
-                vercel.json
+                netlify.toml
               </code>{" "}
-              agenda{" "}
+              agenda a função{" "}
+              <code className="rounded bg-canvas px-1 font-mono text-xs">
+                netlify/functions/expire-reservations.mjs
+              </code>{" "}
+              de hora em hora; ela chama{" "}
               <code className="rounded bg-canvas px-1 font-mono text-xs">
                 /api/cron/expire-reservations
               </code>{" "}
-              de hora em hora. Na Vercel, define{" "}
+              com{" "}
               <code className="rounded bg-canvas px-1 font-mono text-xs">
                 CRON_SECRET
               </code>{" "}
-              — a plataforma envia{" "}
-              <code className="font-mono text-xs">Authorization: Bearer …</code>{" "}
-              automaticamente.
+              no header{" "}
+              <code className="font-mono text-xs">Authorization: Bearer …</code>.
+              Define <code className="font-mono text-xs">CRON_SECRET</code> nas
+              variáveis de ambiente da Netlify (produção).
             </p>
             <p className="mt-3 text-sm text-muted">
               No Supabase, aplica a migração{" "}

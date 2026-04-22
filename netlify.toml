@@ -1,0 +1,11 @@
+# Next.js na Netlify: https://docs.netlify.com/build/frameworks/framework-setup-guides/nextjs/overview
+[build]
+  command = "npm run build"
+
+# Função agendada (cron) — chama a rota Next com CRON_SECRET (igual à lógica antiga na Vercel).
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+[functions."expire-reservations"]
+  schedule = "@hourly"

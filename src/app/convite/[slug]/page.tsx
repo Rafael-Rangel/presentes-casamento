@@ -50,7 +50,7 @@ export default async function ConvitePage({
           src={bg}
           alt=""
           fill
-          className="object-cover object-[center_22%] saturate-[0.85]"
+          className="object-cover object-center saturate-[0.85]"
           sizes="100vw"
           priority
         />

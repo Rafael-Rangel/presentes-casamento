@@ -1,6 +1,6 @@
 /**
  * Copia `imagens_casal/` → `public/imagens_casal/` antes do build.
- * Necessário na Vercel (symlinks relativos fora de public podem falhar).
+ * Necessário em deploy (ex. Netlify: symlinks relativos fora de public podem falhar).
  */
 import fs from "node:fs";
 import path from "node:path";

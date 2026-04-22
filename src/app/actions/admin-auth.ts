@@ -18,7 +18,9 @@ function safeCompare(a: string, b: string): boolean {
 
 function useSecureCookies() {
   return (
-    process.env.NODE_ENV === "production" || process.env.VERCEL === "1"
+    process.env.NODE_ENV === "production" ||
+    process.env.VERCEL === "1" ||
+    process.env.NETLIFY === "true"
   );
 }
 

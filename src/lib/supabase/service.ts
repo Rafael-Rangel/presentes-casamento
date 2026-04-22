@@ -2,7 +2,7 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
 /** Mensagem para mostrar no painel e nas server actions quando falta a service role. */
 export const SERVICE_ROLE_CONFIG_MESSAGE =
-  "Define NEXT_PUBLIC_SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY no .env.local (Supabase → Project Settings → API → service_role). Em produção, adiciona-as nas variáveis de ambiente da Vercel.";
+  "Define NEXT_PUBLIC_SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY no .env.local (Supabase → Project Settings → API → service_role). Em produção, adiciona-as nas variáveis de ambiente (ex.: Netlify).";
 
 export function isSupabaseServiceConfigured(): boolean {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim();

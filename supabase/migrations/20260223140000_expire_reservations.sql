@@ -1,5 +1,5 @@
 -- Expira reservas em atraso e repõe o presente para disponível quando não há outra reserva ativa.
--- Chamado pela rota /api/cron/expire-reservations (Vercel Cron) com service role.
+-- Chamado pela rota /api/cron/expire-reservations (cron agendado, ex. Netlify) com service role.
 
 CREATE OR REPLACE FUNCTION public.run_expire_stale_reservations()
 RETURNS integer

@@ -80,7 +80,7 @@ export default function AdminHomePage() {
             Definições e automações
           </h2>
           <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
-            SMTP para emails de convite, cron na Vercel para expirar reservas e
+            SMTP para emails de convite, cron na Netlify para expirar reservas e
             notas de configuração.
           </p>
           <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-ocean underline decoration-ocean/25 underline-offset-4 group-hover:decoration-ocean">
