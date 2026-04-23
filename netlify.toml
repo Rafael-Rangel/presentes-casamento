@@ -2,6 +2,10 @@
 [build]
   command = "npm run build"
 
+# Garante metadataBase, magic link e links de convite em produção (ajusta se mudares de domínio).
+[context.production.environment]
+  NEXT_PUBLIC_SITE_URL = "https://casamento-rafael-adrielly.netlify.app"
+
 # Função agendada (cron) — chama a rota Next com CRON_SECRET (igual à lógica antiga na Vercel).
 [functions]
   directory = "netlify/functions"

@@ -8,7 +8,7 @@ Documento **enxuto**: stack, integrações e modelo de dados. Não descreve a im
 
 1. Copia [`.env.example`](.env.example) para `.env.local` e preenche `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, **`SUPABASE_SERVICE_ROLE_KEY`** (Dashboard → *Project Settings* → *API*, chave **secret** / service role), `NEXT_PUBLIC_SITE_URL`, **`ADMIN_PASSWORD`**, **`ADMIN_SESSION_SECRET`** (string longa aleatória, ex. 32 chars).
 2. No Supabase: **SQL Editor** → para projeto **novo**, executa [`supabase/schema.sql`](supabase/schema.sql). Se **já tinhas** `gifts` / `reservations` mas o erro diz que falta `guests`, executa só [`supabase/sql_editor_add_guests.sql`](supabase/sql_editor_add_guests.sql) (equivalente à migração [`20260223120000_guests_gift_color.sql`](supabase/migrations/20260223120000_guests_gift_color.sql)). Para expiração automática de reservas, executa também [`20260223140000_expire_reservations.sql`](supabase/migrations/20260223140000_expire_reservations.sql). Para **upload de fotos dos presentes** no painel, executa [`supabase/sql_editor_storage_gift_images.sql`](supabase/sql_editor_storage_gift_images.sql) (bucket público `gift-images`).
-3. **Authentication → URL Configuration**: adiciona `http://localhost:3000/auth/callback` (e o equivalente em produção) a **Redirect URLs**.
+3. **Authentication → URL Configuration**: em **Site URL** usa o URL público do site (ex.: `https://casamento-rafael-adrielly.netlify.app`). Em **Redirect URLs** inclui `http://localhost:3000/auth/callback` e `https://casamento-rafael-adrielly.netlify.app/auth/callback` (e o teu domínio próprio, se existir).
 4. **Painel noivos:** acede a `/admin/login` e usa a `ADMIN_PASSWORD` — não é necessário perfil `admin` no Supabase para gerir presentes/convidados (isso usa a *service role* no servidor). O login **“Entrar (reservar)”** no menu continua a ser **Supabase Auth** para quem quiser reservar presentes com conta.
 
 5. Instala dependências e arranca: `npm install` e `npm run dev`.
@@ -22,9 +22,9 @@ Rotas principais: `/` (três entradas), `/presentes` (lista pública), `/convite
 ### Deploy na Netlify
 
 1. **New site from Git** → escolhe o repositório. A Netlify deteta **Next.js**; **Build command** `npm run build` (o `prebuild` copia `imagens_casal` → `public/imagens_casal`). **Publish directory**: deixa **vazio** (runtime Next.js/OpenNext).
-2. **Environment variables** (Production e, se quiseres, Deploy previews): `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `NEXT_PUBLIC_SITE_URL` (domínio final com `https://` — recomendado mesmo que a Netlify forneça `URL`), `ADMIN_PASSWORD`, `ADMIN_SESSION_SECRET`, `NEXT_PUBLIC_WEDDING_DATE` (opcional), SMTP se usares convites por email, e **`CRON_SECRET`** (string longa aleatória).
+2. **Environment variables** (Production e, se quiseres, Deploy previews): `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `NEXT_PUBLIC_SITE_URL` (domínio final com `https://` — o [`netlify.toml`](netlify.toml) já fixa produção para este site; podes sobrescrever no painel se mudares de URL), `ADMIN_PASSWORD`, `ADMIN_SESSION_SECRET`, `NEXT_PUBLIC_WEDDING_DATE` (opcional), SMTP se usares convites por email, e **`CRON_SECRET`** (string longa aleatória).
 3. **Cron de reservas:** em produção, a função agendada [`netlify/functions/expire-reservations.mjs`](netlify/functions/expire-reservations.mjs) (ver [`netlify.toml`](netlify.toml)) corre **de hora em hora** e chama [`/api/cron/expire-reservations`](src/app/api/cron/expire-reservations/route.ts) com `Authorization: Bearer <CRON_SECRET>`. As funções agendadas **só correm no deploy de produção** publicado (não em branch previews).
-4. Em **Supabase → Authentication → URL Configuration**, adiciona `https://<teu-dominio>/auth/callback` às **Redirect URLs**.
+4. Em **Supabase → Authentication → URL Configuration**, confirma **Redirect URLs** com o mesmo host que `NEXT_PUBLIC_SITE_URL` (ex.: `https://casamento-rafael-adrielly.netlify.app/auth/callback`).
 
 ### Supabase CLI (opcional)
 

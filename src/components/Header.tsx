@@ -1,8 +1,7 @@
 import { signOut } from "@/app/actions/auth";
-import { BRAND_LOGO_ALT, BRAND_LOGO_SRC } from "@/lib/brand";
+import { BrandLogo } from "@/components/brand-logo";
 import { createClient } from "@/lib/supabase/server";
 import { Gift, LogIn, LogOut, Sparkles } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 
 export async function Header() {
@@ -18,16 +17,10 @@ export async function Header() {
           href="/"
           className="group flex items-center gap-2.5 font-display text-lg font-medium tracking-tight text-ink"
         >
-          <span className="relative h-9 w-9 shrink-0 overflow-hidden rounded-xl shadow-sm ring-1 ring-border/80 transition group-hover:ring-ocean/25">
-            <Image
-              src={BRAND_LOGO_SRC}
-              alt={BRAND_LOGO_ALT}
-              width={36}
-              height={36}
-              className="object-cover"
-              priority
-            />
-          </span>
+          <BrandLogo
+            size="sm"
+            className="shadow-sm ring-1 ring-border/80 transition group-hover:ring-ocean/25"
+          />
           <span className="hidden sm:inline">Casamento</span>
         </Link>
         <nav className="flex flex-wrap items-center justify-end gap-1 sm:gap-2">

@@ -28,9 +28,15 @@ export const metadata: Metadata = {
   title: "Lista de presentes — casamento",
   description: "Reserva um presente e celebra connosco.",
   icons: {
-    icon: [{ url: BRAND_LOGO_SRC, type: "image/avif" }],
-    shortcut: BRAND_LOGO_SRC,
-    apple: [{ url: BRAND_LOGO_SRC, type: "image/avif" }],
+    icon: [
+      {
+        url: BRAND_LOGO_SRC,
+        type: "image/avif",
+        sizes: "any",
+      },
+    ],
+    shortcut: [{ url: BRAND_LOGO_SRC, type: "image/avif" }],
+    apple: [{ url: BRAND_LOGO_SRC, type: "image/avif", sizes: "180x180" }],
   },
   openGraph: {
     title: "Lista de presentes — casamento",

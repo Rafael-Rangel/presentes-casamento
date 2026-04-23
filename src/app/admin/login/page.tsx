@@ -1,5 +1,4 @@
-import { BRAND_LOGO_ALT, BRAND_LOGO_SRC } from "@/lib/brand";
-import Image from "next/image";
+import { BrandLogo } from "@/components/brand-logo";
 import Link from "next/link";
 import { AdminLoginForm } from "./login-form";
 
@@ -26,16 +25,7 @@ export default async function AdminLoginPage({
         />
         <div className="relative">
           <div className="flex items-center gap-3">
-            <span className="relative h-11 w-11 shrink-0 overflow-hidden rounded-xl shadow-md ring-1 ring-border/80">
-              <Image
-                src={BRAND_LOGO_SRC}
-                alt={BRAND_LOGO_ALT}
-                width={44}
-                height={44}
-                className="object-cover"
-                priority
-              />
-            </span>
+            <BrandLogo size="md" className="shadow-md ring-1 ring-border/80" />
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.14em] text-ocean">
                 Acesso reservado
