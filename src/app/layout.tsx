@@ -1,7 +1,7 @@
 import { Header } from "@/components/Header";
 import { BRAND_LOGO_ALT, BRAND_LOGO_SRC } from "@/lib/brand";
 import { getSiteUrlSync } from "@/lib/site-url";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Fraunces, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -22,6 +22,16 @@ const fraunces = Fraunces({
 });
 
 const siteUrl = getSiteUrlSync();
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#e8ddd2" },
+    { media: "(prefers-color-scheme: dark)", color: "#1a3d52" },
+  ],
+};
 
 export const metadata: Metadata = {
   ...(siteUrl ? { metadataBase: siteUrl } : {}),
@@ -63,7 +73,7 @@ export default function RootLayout({
       lang="pt"
       className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} h-full`}
     >
-      <body className="flex min-h-full flex-col font-sans">
+      <body className="flex min-h-full flex-col touch-manipulation font-sans">
         <Header />
         <div className="flex flex-1 flex-col">{children}</div>
       </body>

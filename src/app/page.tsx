@@ -14,8 +14,8 @@ export default function Home() {
       <div className="pointer-events-none absolute -right-24 top-24 h-96 w-96 rounded-full bg-sky/25 blur-3xl" />
       <div className="pointer-events-none absolute -left-32 bottom-0 h-80 w-80 rounded-full bg-terracotta/10 blur-3xl" />
 
-      <div className="relative mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
-        <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
+      <div className="relative mx-auto max-w-6xl px-3 pb-12 pt-8 sm:px-6 sm:pb-16 sm:pt-14 md:py-20">
+        <div className="grid items-center gap-8 sm:gap-10 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-6">
             <CoupleMosaic paths={hero} className="lg:max-w-xl" />
           </div>
@@ -25,13 +25,13 @@ export default function Home() {
               <Heart className="h-3.5 w-3.5 fill-terracotta/30" aria-hidden />
               Com amor
             </p>
-            <h1 className="mt-4 font-display text-4xl font-medium leading-[1.1] tracking-tight text-ink sm:text-5xl lg:text-[3.25rem]">
+            <h1 className="mt-3 font-display text-3xl font-medium leading-[1.12] tracking-tight text-ink sm:mt-4 sm:text-4xl md:text-5xl lg:text-[3.25rem]">
               O nosso{" "}
               <span className="bg-gradient-to-r from-ocean-deep to-ocean bg-clip-text text-transparent">
                 casamento
               </span>
             </h1>
-            <p className="mt-6 max-w-md text-lg leading-relaxed text-muted">
+            <p className="mt-5 max-w-md text-base leading-relaxed text-muted sm:mt-6 sm:text-lg">
               <span className="font-semibold text-ink">{weddingDate}</span>
               <span className="text-muted">
                 {" "}
@@ -40,10 +40,10 @@ export default function Home() {
               </span>
             </p>
 
-            <div className="mt-10 grid gap-3 sm:grid-cols-2">
+            <div className="mt-8 grid gap-3 sm:mt-10 sm:grid-cols-2">
               <Link
                 href="/presentes"
-                className="group flex items-start gap-4 rounded-2xl border border-border bg-paper/90 p-5 shadow-sm ring-1 ring-border/60 transition hover:-translate-y-0.5 hover:border-ocean/30 hover:shadow-lg"
+                className="group flex min-h-[4.5rem] touch-manipulation items-start gap-3 rounded-2xl border border-border bg-paper/90 p-4 shadow-sm ring-1 ring-border/60 transition active:scale-[0.99] sm:min-h-0 sm:gap-4 sm:p-5 sm:hover:-translate-y-0.5 sm:hover:border-ocean/30 sm:hover:shadow-lg"
               >
                 <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-ocean/10 text-ocean ring-1 ring-ocean/15">
                   <Gift className="h-6 w-6" strokeWidth={1.5} aria-hidden />
@@ -60,7 +60,7 @@ export default function Home() {
 
               <Link
                 href="/admin/login"
-                className="group flex items-start gap-4 rounded-2xl border border-border bg-gradient-to-br from-paper to-canvas/80 p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-terracotta/35 hover:shadow-md"
+                className="group flex min-h-[4.5rem] touch-manipulation items-start gap-3 rounded-2xl border border-border bg-gradient-to-br from-paper to-canvas/80 p-4 shadow-sm transition active:scale-[0.99] sm:min-h-0 sm:gap-4 sm:p-5 sm:hover:-translate-y-0.5 sm:hover:border-terracotta/35 sm:hover:shadow-md"
               >
                 <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-terracotta/10 text-terracotta ring-1 ring-terracotta/20">
                   <Heart className="h-6 w-6" strokeWidth={1.5} aria-hidden />
@@ -76,7 +76,7 @@ export default function Home() {
               </Link>
             </div>
 
-            <div className="mt-6 flex items-start gap-3 rounded-2xl border border-dashed border-ocean/25 bg-ocean/5 px-4 py-3 text-sm text-muted">
+            <div className="mt-5 flex items-start gap-3 rounded-2xl border border-dashed border-ocean/25 bg-ocean/5 px-3 py-3 text-sm leading-snug text-muted sm:mt-6 sm:px-4">
               <Mail className="mt-0.5 h-4 w-4 shrink-0 text-ocean" aria-hidden />
               <p>
                 Cada convidado recebe um link único{" "}

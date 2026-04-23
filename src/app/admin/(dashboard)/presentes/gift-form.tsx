@@ -54,7 +54,7 @@ function GiftFields({
     <form
       action={formAction}
       encType="multipart/form-data"
-      className="admin-card max-w-2xl space-y-8"
+      className="admin-card mx-auto max-w-2xl space-y-6 sm:space-y-8"
     >
       {state.error ? (
         <p
@@ -175,11 +175,9 @@ function GiftFields({
       </section>
 
       <details className="group rounded-2xl border border-border/80 bg-canvas/25 open:border-ocean/20 open:bg-paper/60">
-        <summary className="cursor-pointer list-none px-4 py-3.5 text-sm font-semibold text-ink transition marker:content-none [&::-webkit-details-marker]:hidden">
-          <span className="text-muted group-open:text-ocean-deep">
-            Opções avançadas
-          </span>
-          <span className="ml-2 font-normal text-muted">
+        <summary className="cursor-pointer list-none touch-manipulation px-3 py-3.5 text-sm font-semibold text-ink transition marker:content-none [&::-webkit-details-marker]:hidden sm:px-4">
+          <span className="text-muted group-open:text-ocean-deep">Opções avançadas</span>
+          <span className="mt-1 block text-xs font-normal leading-snug text-muted sm:mt-0 sm:ml-2 sm:inline sm:text-sm">
             — preço, categoria, prioridade, estado, mês de liberação
           </span>
         </summary>

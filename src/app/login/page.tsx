@@ -13,9 +13,9 @@ export default async function LoginPage({
       : "/";
 
   return (
-    <main className="mx-auto flex w-full max-w-lg flex-1 flex-col gap-8 px-4 py-16">
+    <main className="mx-auto flex w-full max-w-lg flex-1 flex-col gap-6 px-3 py-12 pb-[max(3rem,env(safe-area-inset-bottom))] sm:gap-8 sm:px-4 sm:py-16">
       <div>
-        <h1 className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
+        <h1 className="text-xl font-semibold tracking-tight text-zinc-900 sm:text-2xl dark:text-zinc-50">
           Iniciar sessão
         </h1>
         <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">

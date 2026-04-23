@@ -41,8 +41,8 @@ export function AdminSidebarNav() {
             href={href}
             className={
               active
-                ? "flex shrink-0 items-center gap-2 rounded-xl bg-gradient-to-r from-ocean/14 to-ocean/8 px-3 py-2.5 text-sm font-semibold text-ocean-deep shadow-sm ring-1 ring-ocean/20"
-                : "flex shrink-0 items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium text-muted transition hover:bg-canvas/80 hover:text-ink"
+                ? "flex min-h-[44px] shrink-0 touch-manipulation items-center gap-2 rounded-xl bg-gradient-to-r from-ocean/14 to-ocean/8 px-3 py-2.5 text-sm font-semibold text-ocean-deep shadow-sm ring-1 ring-ocean/20 sm:min-h-0"
+                : "flex min-h-[44px] shrink-0 touch-manipulation items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium text-muted transition hover:bg-canvas/80 hover:text-ink sm:min-h-0"
             }
           >
             <Icon

@@ -13,7 +13,7 @@ export function CopyRowLink({ url }: { url: string }) {
         setDone(true);
         setTimeout(() => setDone(false), 1600);
       }}
-      className="mt-2 inline-flex items-center gap-1.5 rounded-lg px-2 py-1 text-xs font-semibold text-ocean transition hover:bg-ocean/10"
+      className="mt-2 inline-flex min-h-[40px] touch-manipulation items-center gap-1.5 rounded-lg px-2.5 py-2 text-xs font-semibold text-ocean transition hover:bg-ocean/10 sm:min-h-0 sm:px-2 sm:py-1"
     >
       {done ? (
         <>

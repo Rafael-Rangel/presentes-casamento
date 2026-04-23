@@ -10,7 +10,7 @@ export default function AdminDashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="admin-shell mx-auto flex w-full max-w-6xl flex-1 flex-col gap-8 px-4 py-8 sm:px-6 lg:flex-row lg:gap-10">
+    <div className="admin-shell mx-auto flex w-full max-w-6xl flex-1 flex-col gap-6 px-3 py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] sm:gap-8 sm:px-6 sm:py-8 lg:flex-row lg:gap-10">
       <aside className="w-full shrink-0 lg:sticky lg:top-24 lg:w-56 lg:self-start">
         <div className="admin-sidebar-panel">
           <p className="font-display text-lg font-medium tracking-tight text-ink">

@@ -85,7 +85,7 @@ export function PresentesGiftCard({
   return (
     <Link
       href={`/presentes/${gift.id}`}
-      className="group flex h-full flex-col overflow-hidden rounded-2xl bg-paper shadow-md ring-1 ring-border transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:ring-ocean/25"
+      className="group flex h-full touch-manipulation flex-col overflow-hidden rounded-2xl bg-paper shadow-md ring-1 ring-border transition duration-300 active:scale-[0.99] sm:hover:-translate-y-1 sm:hover:shadow-xl sm:hover:ring-ocean/25"
     >
       <div
         className="relative aspect-[16/10] w-full overflow-hidden bg-canvas"

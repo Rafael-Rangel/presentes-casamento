@@ -25,9 +25,15 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: clip;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
   body {
     @apply bg-canvas text-ink antialiased;
+    min-height: 100dvh;
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
     background-image: radial-gradient(
         ellipse 120% 80% at 100% -20%,
         color-mix(in oklab, var(--color-wave) 35%, transparent),
@@ -69,15 +75,15 @@
   }
 
   .admin-sidebar-panel {
-    @apply rounded-2xl border border-border/90 bg-paper/90 p-5 shadow-[0_1px_0_rgba(42,36,29,0.05),0_18px_48px_-20px_rgba(26,61,82,0.22)] backdrop-blur-md;
+    @apply rounded-2xl border border-border/90 bg-paper/90 p-4 shadow-[0_1px_0_rgba(42,36,29,0.05),0_18px_48px_-20px_rgba(26,61,82,0.22)] backdrop-blur-md sm:p-5;
   }
 
   .admin-card {
-    @apply rounded-2xl border border-border/90 bg-paper/95 p-6 shadow-[0_1px_0_rgba(42,36,29,0.06),0_10px_40px_-24px_rgba(42,36,29,0.12)] backdrop-blur-sm;
+    @apply rounded-2xl border border-border/90 bg-paper/95 p-4 shadow-[0_1px_0_rgba(42,36,29,0.06),0_10px_40px_-24px_rgba(42,36,29,0.12)] backdrop-blur-sm sm:p-6;
   }
 
   .admin-page-title {
-    @apply font-display text-3xl font-medium tracking-tight text-ink;
+    @apply font-display text-2xl font-medium tracking-tight text-ink sm:text-3xl;
   }
 
   .admin-page-sub {
@@ -89,22 +95,22 @@
   }
 
   .admin-input {
-    @apply mt-1.5 w-full rounded-xl border border-border bg-paper px-3.5 py-2.5 text-sm text-ink shadow-[inset_0_1px_2px_rgba(42,36,29,0.04)] outline-none transition
+    @apply mt-1.5 w-full min-h-[2.75rem] rounded-xl border border-border bg-paper px-3.5 py-2.5 text-base text-ink shadow-[inset_0_1px_2px_rgba(42,36,29,0.04)] outline-none transition sm:text-sm
       placeholder:text-muted/60
       focus:border-ocean/45 focus:ring-2 focus:ring-ocean/15;
   }
 
   .admin-select {
-    @apply mt-1.5 w-full cursor-pointer rounded-xl border border-border bg-paper px-3.5 py-2.5 text-sm text-ink shadow-[inset_0_1px_2px_rgba(42,36,29,0.04)] outline-none transition
+    @apply mt-1.5 w-full min-h-[2.75rem] cursor-pointer rounded-xl border border-border bg-paper px-3.5 py-2.5 text-base text-ink shadow-[inset_0_1px_2px_rgba(42,36,29,0.04)] outline-none transition sm:text-sm
       focus:border-ocean/45 focus:ring-2 focus:ring-ocean/15;
   }
 
   .admin-table-wrap {
-    @apply overflow-hidden rounded-2xl border border-border/90 bg-paper/70 shadow-[0_1px_0_rgba(42,36,29,0.05)];
+    @apply max-w-full overflow-x-auto overscroll-x-contain rounded-2xl border border-border/90 bg-paper/70 shadow-[0_1px_0_rgba(42,36,29,0.05)] [-webkit-overflow-scrolling:touch];
   }
 
   .admin-table {
-    @apply min-w-full border-collapse text-left text-sm;
+    @apply w-full min-w-[36rem] border-collapse text-left text-sm;
   }
 
   .admin-table thead {
@@ -112,11 +118,11 @@
   }
 
   .admin-table th {
-    @apply border-b border-border/80 px-4 py-3.5 text-left text-xs font-semibold uppercase tracking-[0.08em] text-muted;
+    @apply border-b border-border/80 px-3 py-3 text-left text-xs font-semibold uppercase tracking-[0.08em] text-muted sm:px-4 sm:py-3.5;
   }
 
   .admin-table td {
-    @apply border-b border-border/50 px-4 py-3.5 align-top text-ink;
+    @apply border-b border-border/50 px-3 py-3 align-top text-ink sm:px-4 sm:py-3.5;
   }
 
   .admin-table tbody tr {
@@ -128,12 +134,12 @@
   }
 
   .admin-btn-primary {
-    @apply inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-ocean-deep to-ocean px-4 py-2.5 text-sm font-semibold text-paper shadow-md transition
+    @apply inline-flex min-h-[2.75rem] touch-manipulation items-center justify-center rounded-xl bg-gradient-to-r from-ocean-deep to-ocean px-4 py-2.5 text-sm font-semibold text-paper shadow-md transition
       hover:brightness-[1.06] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ocean disabled:pointer-events-none disabled:opacity-50;
   }
 
   .admin-btn-secondary {
-    @apply inline-flex items-center justify-center rounded-xl border border-border bg-paper/90 px-4 py-2.5 text-sm font-semibold text-ink shadow-sm transition
+    @apply inline-flex min-h-[2.75rem] touch-manipulation items-center justify-center rounded-xl border border-border bg-paper/90 px-4 py-2.5 text-sm font-semibold text-ink shadow-sm transition
       hover:border-ocean/30 hover:bg-canvas/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ocean/40 disabled:opacity-50;
   }
 
@@ -146,7 +152,7 @@
   }
 
   .admin-back-link {
-    @apply inline-flex items-center gap-1.5 text-sm font-medium text-muted transition hover:text-ocean-deep;
+    @apply inline-flex min-h-[44px] touch-manipulation items-center gap-1.5 py-1 text-sm font-medium text-muted transition hover:text-ocean-deep sm:min-h-0 sm:py-0;
   }
 
   .admin-login-backdrop {

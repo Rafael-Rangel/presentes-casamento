@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function AdminDefinicoesPage() {
   return (
-    <div className="max-w-2xl space-y-8">
+    <div className="max-w-2xl space-y-6 break-words sm:space-y-8">
       <header>
         <h1 className="admin-page-title">Definições</h1>
         <p className="admin-page-sub">
@@ -32,12 +32,12 @@ export default function AdminDefinicoesPage() {
             </p>
             <ul className="mt-4 space-y-2 text-sm text-muted">
               <li>
-                <code className="font-mono text-xs text-ocean-deep">
+                <code className="block break-all font-mono text-xs text-ocean-deep">
                   SMTP_HOST=smtp.gmail.com
                 </code>
               </li>
               <li>
-                <code className="font-mono text-xs text-ocean-deep">
+                <code className="block break-all font-mono text-xs text-ocean-deep">
                   SMTP_PORT=587
                 </code>
               </li>

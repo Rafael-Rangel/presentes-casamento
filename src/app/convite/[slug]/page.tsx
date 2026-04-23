@@ -20,7 +20,7 @@ export default async function ConvitePage({
   const supabase = createServiceClientOrNull();
   if (!supabase) {
     return (
-      <main className="mx-auto max-w-md flex-1 px-4 py-24 text-center text-sm text-muted">
+      <main className="mx-auto max-w-md flex-1 px-3 py-16 text-center text-sm text-muted sm:px-4 sm:py-24">
         <p className="text-ink">
           O convite não está disponível neste momento (configuração do servidor
           incompleta).
@@ -58,17 +58,17 @@ export default async function ConvitePage({
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,rgba(196,165,116,0.22),transparent_50%)]" />
       </div>
 
-      <div className="relative mx-auto flex max-w-2xl flex-col gap-10 px-4 py-20 sm:py-24">
+      <div className="relative mx-auto flex max-w-2xl flex-col gap-8 px-3 py-16 pb-[max(2.5rem,env(safe-area-inset-bottom))] sm:gap-10 sm:px-4 sm:py-20 md:py-24">
         <p className="text-center text-xs font-semibold uppercase tracking-[0.28em] text-sand">
           Convite personalizado
         </p>
-        <h1 className="text-center font-display text-4xl font-medium leading-tight tracking-tight sm:text-5xl">
+        <h1 className="text-center font-display text-3xl font-medium leading-tight tracking-tight sm:text-4xl md:text-5xl">
           Olá,{" "}
           <span className="bg-gradient-to-r from-sand via-paper to-wave bg-clip-text text-transparent">
             {guest.display_name}
           </span>
         </h1>
-        <p className="text-center text-lg leading-relaxed text-paper/90">
+        <p className="text-center text-base leading-relaxed text-paper/90 sm:text-lg">
           Estamos muito felizes por celebrares connosco —{" "}
           <span className="font-semibold text-sand">{weddingDate}</span>.
         </p>
@@ -76,14 +76,14 @@ export default async function ConvitePage({
         <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
           <Link
             href="/presentes"
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-sand to-terracotta-soft px-9 py-3.5 text-sm font-bold text-ocean-deep shadow-lg transition hover:brightness-105"
+            className="inline-flex min-h-[3rem] w-full touch-manipulation items-center justify-center gap-2 rounded-full bg-gradient-to-r from-sand to-terracotta-soft px-6 py-3.5 text-sm font-bold text-ocean-deep shadow-lg transition hover:brightness-105 sm:w-auto sm:px-9"
           >
             <Gift className="h-4 w-4" strokeWidth={2} aria-hidden />
             Ver lista de presentes
           </Link>
         </div>
 
-        <div className="rounded-2xl border border-paper/15 bg-paper/10 p-6 shadow-xl backdrop-blur-md">
+        <div className="rounded-2xl border border-paper/15 bg-paper/10 p-4 shadow-xl backdrop-blur-md sm:p-6">
           <p className="flex items-center justify-center gap-2 text-center text-sm text-paper/90">
             <Heart className="h-4 w-4 fill-sand/40 text-sand" aria-hidden />
             Guarda o teu link — é só teu e leva-te sempre a esta página.

@@ -26,9 +26,9 @@ export default async function ContaPage() {
   const rows = (reservations ?? []) as ReservationWithGift[];
 
   return (
-    <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-8 px-4 py-10">
+    <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-6 px-3 py-8 pb-[max(2rem,env(safe-area-inset-bottom))] sm:gap-8 sm:px-4 sm:py-10">
       <div>
-        <h1 className="text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
+        <h1 className="text-2xl font-semibold tracking-tight text-zinc-900 sm:text-3xl dark:text-zinc-50">
           Minhas reservas
         </h1>
         <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
@@ -55,14 +55,14 @@ export default async function ContaPage() {
           {rows.map((r) => (
             <li
               key={r.id}
-              className="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-950"
+              className="rounded-lg border border-zinc-200 bg-white p-3 sm:p-4 dark:border-zinc-800 dark:bg-zinc-950"
             >
-              <div className="flex flex-wrap items-start justify-between gap-2">
-                <div>
-                  <p className="font-medium text-zinc-900 dark:text-zinc-50">
+              <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between sm:gap-2">
+                <div className="min-w-0 flex-1">
+                  <p className="break-words font-medium text-zinc-900 dark:text-zinc-50">
                     {r.gifts?.title ?? "Presente"}
                   </p>
-                  <p className="text-xs text-zinc-500">
+                  <p className="mt-1 text-xs text-zinc-500">
                     Presente:{" "}
                     {r.gifts?.status
                       ? giftStatusLabel(r.gifts.status as Gift["status"])
@@ -72,7 +72,7 @@ export default async function ContaPage() {
                 </div>
                 <Link
                   href={`/presentes/${r.gift_id}`}
-                  className="text-xs font-medium text-zinc-900 underline dark:text-zinc-100"
+                  className="inline-flex min-h-[44px] touch-manipulation items-center text-sm font-medium text-zinc-900 underline decoration-zinc-400 underline-offset-2 dark:text-zinc-100 sm:text-xs"
                 >
                   Ver presente
                 </Link>

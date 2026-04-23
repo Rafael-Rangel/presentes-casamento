@@ -15,7 +15,7 @@ export default function AdminHomePage() {
       <div className="grid gap-5 sm:grid-cols-2">
         <Link
           href="/admin/convidados"
-          className="group admin-card relative overflow-hidden transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_20px_48px_-28px_rgba(45,90,117,0.35)]"
+          className="group admin-card relative touch-manipulation overflow-hidden transition duration-200 active:scale-[0.99] sm:hover:-translate-y-0.5 sm:hover:shadow-[0_20px_48px_-28px_rgba(45,90,117,0.35)]"
         >
           <div
             className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full opacity-[0.12] transition group-hover:opacity-[0.18]"
@@ -42,7 +42,7 @@ export default function AdminHomePage() {
 
         <Link
           href="/admin/presentes"
-          className="group admin-card relative overflow-hidden transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_20px_48px_-28px_rgba(180,83,47,0.25)]"
+          className="group admin-card relative touch-manipulation overflow-hidden transition duration-200 active:scale-[0.99] sm:hover:-translate-y-0.5 sm:hover:shadow-[0_20px_48px_-28px_rgba(180,83,47,0.25)]"
         >
           <div
             className="pointer-events-none absolute -right-6 -top-6 h-28 w-28 rounded-full opacity-[0.14] transition group-hover:opacity-[0.2]"
@@ -70,7 +70,7 @@ export default function AdminHomePage() {
 
         <Link
           href="/admin/definicoes"
-          className="group admin-card relative overflow-hidden sm:col-span-2"
+          className="group admin-card relative touch-manipulation overflow-hidden active:scale-[0.99] sm:col-span-2"
         >
           <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-muted">
             <Settings className="h-4 w-4" strokeWidth={1.75} aria-hidden />

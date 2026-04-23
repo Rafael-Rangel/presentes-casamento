@@ -36,10 +36,10 @@ export default async function PresenteDetalhePage({
   const canReserve = gift.status === "available" && Boolean(user);
 
   return (
-    <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-10 px-4 py-10 sm:px-6">
+    <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-8 px-3 py-8 pb-[max(2rem,env(safe-area-inset-bottom))] sm:gap-10 sm:px-6 sm:py-10">
       <Link
         href="/presentes"
-        className="inline-flex w-fit items-center gap-2 text-sm font-medium text-ocean hover:text-ocean-deep"
+        className="inline-flex min-h-[44px] w-fit touch-manipulation items-center gap-2 py-1 text-sm font-medium text-ocean hover:text-ocean-deep"
       >
         <span aria-hidden>←</span> Voltar à lista
       </Link>
@@ -54,10 +54,10 @@ export default async function PresenteDetalhePage({
             <img
               src={gift.image_url}
               alt=""
-              className="max-h-[440px] w-full object-cover"
+              className="max-h-[min(55vh,440px)] w-full object-cover sm:max-h-[440px]"
             />
           ) : (
-            <div className="relative aspect-[16/10] w-full max-h-[440px]">
+            <div className="relative aspect-[16/10] w-full max-h-[min(55vh,440px)] sm:max-h-[440px]">
               <Image
                 src={fallback}
                 alt=""
@@ -87,7 +87,7 @@ export default async function PresenteDetalhePage({
               </span>
             ) : null}
           </div>
-          <h1 className="font-display text-3xl font-medium tracking-tight text-ink sm:text-4xl">
+          <h1 className="font-display text-2xl font-medium tracking-tight text-ink sm:text-3xl md:text-4xl">
             {gift.title}
           </h1>
           {gift.estimated_price != null ? (
@@ -112,7 +112,7 @@ export default async function PresenteDetalhePage({
             href={gift.store_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex w-fit items-center gap-2 rounded-full border border-ocean/25 bg-ocean/5 px-4 py-2 text-sm font-semibold text-ocean-deep transition hover:border-ocean/40 hover:bg-ocean/10"
+            className="inline-flex min-h-[44px] w-full touch-manipulation items-center justify-center gap-2 rounded-full border border-ocean/25 bg-ocean/5 px-4 py-2.5 text-sm font-semibold text-ocean-deep transition hover:border-ocean/40 hover:bg-ocean/10 sm:w-fit sm:py-2"
           >
             <ExternalLink className="h-4 w-4" aria-hidden />
             Abrir produto de referência

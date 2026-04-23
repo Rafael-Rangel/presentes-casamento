@@ -14,7 +14,7 @@ export default async function AdminLoginPage({
       : "/admin";
 
   return (
-    <main className="admin-login-backdrop mx-auto flex min-h-[72vh] w-full max-w-md flex-col justify-center px-4 py-16">
+    <main className="admin-login-backdrop mx-auto flex min-h-[70dvh] w-full max-w-md flex-col justify-center px-3 py-10 pb-[max(2.5rem,env(safe-area-inset-bottom))] sm:min-h-[72vh] sm:px-4 sm:py-16">
       <div className="admin-card relative overflow-hidden border-ocean/15 shadow-[0_24px_64px_-32px_rgba(26,61,82,0.35)] ring-1 ring-ocean/10">
         <div
           className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full opacity-20"

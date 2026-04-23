@@ -62,22 +62,22 @@ export default async function PresentesPage({
   return (
     <main className="relative flex-1">
       <div className="border-b border-border/70 bg-paper/60">
-        <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
-          <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
-            <div>
+        <div className="mx-auto max-w-6xl px-3 py-8 sm:px-6 sm:py-12 md:py-16">
+          <div className="grid items-center gap-8 sm:gap-10 lg:grid-cols-2 lg:gap-14">
+            <div className="min-w-0">
               <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-ocean">
                 <GiftIcon className="h-4 w-4" strokeWidth={1.5} aria-hidden />
                 Lista de presentes
               </p>
-              <h1 className="mt-4 font-display text-4xl font-medium tracking-tight text-ink sm:text-5xl">
+              <h1 className="mt-3 font-display text-3xl font-medium tracking-tight text-ink sm:mt-4 sm:text-4xl md:text-5xl">
                 {weddingDate}
               </h1>
-              <p className="mt-5 max-w-prose text-base leading-relaxed text-muted">
+              <p className="mt-4 max-w-prose text-sm leading-relaxed text-muted sm:mt-5 sm:text-base">
                 Fotos nossas, referências reais de loja e ideias que vão
                 aparecendo mês a mês — começamos pelo essencial e vamos
                 abrindo o resto como um jogo em equipa.
               </p>
-              <p className="mt-4 inline-flex items-center gap-2 rounded-full bg-canvas px-4 py-2 text-sm font-medium text-ocean-deep ring-1 ring-border">
+              <p className="mt-4 inline-flex max-w-full flex-wrap items-center gap-2 rounded-full bg-canvas px-3 py-2 text-xs font-medium text-ocean-deep ring-1 ring-border sm:px-4 sm:text-sm">
                 <Calendar className="h-4 w-4" aria-hidden />
                 Calendário ativo:{" "}
                 <span className="font-semibold text-ink">{month}</span>
@@ -88,9 +88,9 @@ export default async function PresentesPage({
         </div>
       </div>
 
-      <div className="mx-auto max-w-6xl space-y-16 px-4 py-14 sm:px-6">
+      <div className="mx-auto max-w-6xl space-y-12 px-3 py-10 sm:space-y-16 sm:px-6 sm:py-14">
         <form
-          className="mx-auto flex max-w-3xl flex-col gap-4 rounded-2xl border border-border bg-paper/90 p-4 shadow-sm ring-1 ring-border/60 sm:flex-row sm:items-end sm:p-5"
+          className="mx-auto flex max-w-3xl flex-col gap-3 rounded-2xl border border-border bg-paper/90 p-3 shadow-sm ring-1 ring-border/60 sm:gap-4 sm:p-4 md:flex-row md:items-end md:p-5"
           method="get"
         >
           <label className="flex flex-1 flex-col gap-2 text-sm">
@@ -102,15 +102,15 @@ export default async function PresentesPage({
               name="q"
               defaultValue={q}
               placeholder="Fogão, cama, air fryer…"
-              className="rounded-xl border border-border bg-paper px-4 py-2.5 text-ink shadow-inner outline-none ring-ocean/30 transition focus:border-ocean/40 focus:ring-2"
+              className="min-h-[2.75rem] w-full rounded-xl border border-border bg-paper px-3 py-2.5 text-base text-ink shadow-inner outline-none ring-ocean/30 transition focus:border-ocean/40 focus:ring-2 sm:px-4 sm:text-sm"
             />
           </label>
-          <label className="flex w-full flex-col gap-2 text-sm sm:max-w-[220px]">
+          <label className="flex w-full flex-col gap-2 text-sm md:max-w-[220px]">
             <span className="font-medium text-ink">Categoria</span>
             <select
               name="cat"
               defaultValue={cat}
-              className="rounded-xl border border-border bg-paper px-4 py-2.5 text-ink shadow-inner outline-none focus:ring-2 focus:ring-ocean/25"
+              className="min-h-[2.75rem] w-full rounded-xl border border-border bg-paper px-3 py-2.5 text-base text-ink shadow-inner outline-none focus:ring-2 focus:ring-ocean/25 sm:px-4 sm:text-sm"
             >
               <option value="">Todas</option>
               {categories.map((c) => (
@@ -122,7 +122,7 @@ export default async function PresentesPage({
           </label>
           <button
             type="submit"
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-ocean-deep to-ocean px-6 py-2.5 text-sm font-semibold text-paper shadow-md transition hover:brightness-110"
+            className="inline-flex min-h-[2.75rem] w-full touch-manipulation items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-ocean-deep to-ocean px-6 py-3 text-sm font-semibold text-paper shadow-md transition hover:brightness-110 md:w-auto md:py-2.5"
           >
             <Search className="h-4 w-4 opacity-90" aria-hidden />
             Aplicar
@@ -144,7 +144,7 @@ export default async function PresentesPage({
               title="Prioridade e urgência"
               description="O que mais precisamos de organizar primeiro — reserva com carinho."
             />
-            <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
               {urgent.map((g) => (
                 <li key={g.id}>
                   <PresentesGiftCard gift={g} locked={false} />
@@ -162,7 +162,7 @@ export default async function PresentesPage({
               title="Deste mês no radar"
               description="Sugestões alinhadas com o mês atual ou sem data fechada."
             />
-            <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
               {thisMonth
                 .filter((g) => !urgent.includes(g))
                 .map((g) => (
@@ -182,7 +182,7 @@ export default async function PresentesPage({
               title="Outros presentes"
               description="Já podes ver e combinar — ajudam a completar a nossa casa."
             />
-            <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
               {otherUnlocked.map((g) => (
                 <li key={g.id}>
                   <PresentesGiftCard gift={g} locked={false} />
@@ -200,7 +200,7 @@ export default async function PresentesPage({
               title="Próximas surpresas"
               description="Ainda ‘no forno’ até ao mês indicado — ficam aqui para criar expectativa."
             />
-            <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
               {locked.map((g) => (
                 <li key={g.id}>
                   <PresentesGiftCard gift={g} locked />

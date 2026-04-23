@@ -34,10 +34,10 @@ export function ReserveGiftForm({
   return (
     <form
       action={formAction}
-      className="space-y-4 rounded-2xl border border-border bg-paper/95 p-6 shadow-sm ring-1 ring-border/70"
+      className="space-y-4 rounded-2xl border border-border bg-paper/95 p-4 shadow-sm ring-1 ring-border/70 sm:p-6"
     >
       <input type="hidden" name="giftId" value={giftId} />
-      <h2 className="font-display text-xl font-medium text-ink">Reservar</h2>
+      <h2 className="font-display text-lg font-medium text-ink sm:text-xl">Reservar</h2>
       {state.error ? (
         <p className="text-sm font-medium text-terracotta">{state.error}</p>
       ) : null}
@@ -51,7 +51,7 @@ export function ReserveGiftForm({
         <textarea
           name="message"
           rows={3}
-          className="mt-2 w-full rounded-xl border border-border bg-paper px-3 py-2 text-ink shadow-inner outline-none focus:ring-2 focus:ring-ocean/25"
+          className="mt-2 min-h-[5.5rem] w-full rounded-xl border border-border bg-paper px-3 py-2.5 text-base text-ink shadow-inner outline-none focus:ring-2 focus:ring-ocean/25 sm:text-sm"
           placeholder="Um recado para os noivos…"
         />
       </label>
@@ -60,17 +60,21 @@ export function ReserveGiftForm({
         <input
           type="date"
           name="purchaseEstimate"
-          className="mt-2 w-full rounded-xl border border-border bg-paper px-3 py-2 text-ink shadow-inner outline-none focus:ring-2 focus:ring-ocean/25"
+          className="mt-2 min-h-[2.75rem] w-full rounded-xl border border-border bg-paper px-3 py-2 text-base text-ink shadow-inner outline-none focus:ring-2 focus:ring-ocean/25 sm:text-sm"
         />
       </label>
-      <label className="flex items-center gap-2 text-sm text-muted">
-        <input type="checkbox" name="isSurprise" className="rounded border-border" />
+      <label className="flex min-h-[44px] cursor-pointer touch-manipulation items-center gap-3 text-sm text-muted">
+        <input
+          type="checkbox"
+          name="isSurprise"
+          className="size-5 shrink-0 rounded border-border"
+        />
         Reserva surpresa
       </label>
       <button
         type="submit"
         disabled={pending}
-        className="w-full rounded-xl bg-gradient-to-r from-ocean-deep to-ocean py-3 text-sm font-semibold text-paper shadow-md transition hover:brightness-110 disabled:opacity-60"
+        className="min-h-[3rem] w-full touch-manipulation rounded-xl bg-gradient-to-r from-ocean-deep to-ocean py-3 text-base font-semibold text-paper shadow-md transition hover:brightness-110 disabled:opacity-60 sm:text-sm"
       >
         {pending ? "A reservar…" : "Confirmar reserva"}
       </button>
