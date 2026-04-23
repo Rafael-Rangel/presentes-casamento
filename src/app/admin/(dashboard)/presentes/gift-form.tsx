@@ -5,6 +5,7 @@ import {
   updateGift,
   type GiftActionState,
 } from "@/app/actions/gifts";
+import { releaseMonthToDateInputValue } from "@/lib/app-timezone";
 import type { Gift } from "@/lib/types";
 import { ImageIcon, Link2, Palette } from "lucide-react";
 import { useActionState, useEffect, useState } from "react";
@@ -237,17 +238,20 @@ function GiftFields({
           </div>
 
           <label className="admin-label">
-            Mês de liberação (YYYY-MM)
+            Data a partir da qual o presente liberta na lista
             <input
-              name="releaseMonth"
-              defaultValue={gift?.release_month ?? ""}
-              placeholder="2026-06 — só aparece no site a partir deste mês"
-              pattern="\d{4}-\d{2}"
+              type="date"
+              name="releaseMonthDate"
+              lang="pt-BR"
+              defaultValue={releaseMonthToDateInputValue(gift?.release_month)}
               className="admin-input"
             />
             <span className="mt-1.5 block text-xs leading-relaxed text-muted">
-              Vazio = visível logo. Datas futuras mostram o cartão em modo
-              &quot;brevemente&quot;.
+              Calendário em formato dia/mês/ano conforme o teu browser. O mês
+              contado para a lista segue o fuso{" "}
+              <strong className="text-ink">America/São Paulo</strong>. Vazio =
+              já visível (se o estado for &quot;Disponível&quot;). Com estado
+              &quot;Em breve&quot;, continua oculto até mudares o estado.
             </span>
           </label>
         </div>

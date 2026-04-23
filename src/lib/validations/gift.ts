@@ -49,10 +49,16 @@ export const giftFormSchema = z.object({
   category: z.string().max(100).optional().default(""),
   priority: priorityEnum.default("normal"),
   status: statusEnum.default("available"),
-  releaseMonth: z.string().max(20).optional().nullable().transform((s) => {
-    const t = s?.trim();
-    return t === "" || !t ? null : t;
-  }),
+  /** `YYYY-MM` já normalizado (vem do `<input type="date">` no servidor). */
+  releaseMonth: z
+    .union([z.string(), z.null()])
+    .optional()
+    .transform((s) => {
+      if (s === undefined || s === null) return null;
+      const t = typeof s === "string" ? s.trim() : "";
+      if (!t) return null;
+      return /^\d{4}-\d{2}$/.test(t) ? t : null;
+    }),
   imageUrl: optionalUrl("Imagem"),
   storeUrl: optionalUrl("Loja"),
   accentColor: z

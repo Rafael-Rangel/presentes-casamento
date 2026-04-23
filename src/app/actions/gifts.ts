@@ -7,6 +7,7 @@ import {
   uploadGiftImageFile,
 } from "@/lib/supabase/gift-image-storage";
 import { getServiceClientOrError } from "@/lib/supabase/service";
+import { dateInputToReleaseMonth } from "@/lib/app-timezone";
 import { giftFormSchema } from "@/lib/validations/gift";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -20,18 +21,25 @@ function parseGiftForm(formData: FormData, imageUrlOverride?: string | null) {
       ? (imageUrlOverride ?? "")
       : String(formData.get("imageUrl") ?? "");
 
-  return giftFormSchema.safeParse({
-    title: formData.get("title"),
-    description: formData.get("description") ?? "",
-    estimatedPrice: formData.get("estimatedPrice") ?? "",
-    category: formData.get("category") ?? "",
-    priority: formData.get("priority") ?? "normal",
-    status: formData.get("status") ?? "available",
-    releaseMonth: formData.get("releaseMonth"),
-    imageUrl: imageUrlField,
-    storeUrl: formData.get("storeUrl") ?? "",
-    accentColor: formData.get("accentColor") ?? "#6366f1",
-  });
+  const rawReleaseDate = String(formData.get("releaseMonthDate") ?? "").trim();
+  const releaseMonth =
+    rawReleaseDate === "" ? null : dateInputToReleaseMonth(rawReleaseDate);
+
+  return {
+    parsed: giftFormSchema.safeParse({
+      title: formData.get("title"),
+      description: formData.get("description") ?? "",
+      estimatedPrice: formData.get("estimatedPrice") ?? "",
+      category: formData.get("category") ?? "",
+      priority: formData.get("priority") ?? "normal",
+      status: formData.get("status") ?? "available",
+      releaseMonth,
+      imageUrl: imageUrlField,
+      storeUrl: formData.get("storeUrl") ?? "",
+      accentColor: formData.get("accentColor") ?? "#6366f1",
+    }),
+    releaseDateInvalid: rawReleaseDate !== "" && releaseMonth === null,
+  };
 }
 
 async function resolveImageUrlForForm(
@@ -82,7 +90,13 @@ export async function createGift(
     return { ok: false, error: resolved.error };
   }
 
-  const parsed = parseGiftForm(formData, resolved.imageUrl);
+  const { parsed, releaseDateInvalid } = parseGiftForm(formData, resolved.imageUrl);
+  if (releaseDateInvalid) {
+    return {
+      ok: false,
+      error: "Data de liberação inválida. Escolhe uma data válida no calendário.",
+    };
+  }
   if (!parsed.success) {
     return {
       ok: false,
@@ -143,7 +157,13 @@ export async function updateGift(
     return { ok: false, error: resolved.error };
   }
 
-  const parsed = parseGiftForm(formData, resolved.imageUrl);
+  const { parsed, releaseDateInvalid } = parseGiftForm(formData, resolved.imageUrl);
+  if (releaseDateInvalid) {
+    return {
+      ok: false,
+      error: "Data de liberação inválida. Escolhe uma data válida no calendário.",
+    };
+  }
   if (!parsed.success) {
     return {
       ok: false,

@@ -3,6 +3,7 @@ import { z } from "zod";
 export const reserveGiftSchema = z.object({
   giftId: z.string().uuid(),
   message: z.string().max(2000).default(""),
+  /** `YYYY-MM-DD` do input date — enviado assim ao Postgres (sem deslocar fuso). */
   purchaseEstimate: z
     .union([z.string(), z.undefined()])
     .optional()
@@ -10,8 +11,7 @@ export const reserveGiftSchema = z.object({
       if (typeof s !== "string") return undefined;
       const t = s.trim();
       if (!t) return undefined;
-      const d = new Date(t);
-      return Number.isNaN(d.getTime()) ? undefined : d;
+      return /^\d{4}-\d{2}-\d{2}$/.test(t) ? t : undefined;
     }),
   isSurprise: z
     .string()

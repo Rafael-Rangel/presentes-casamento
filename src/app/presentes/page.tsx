@@ -77,11 +77,17 @@ export default async function PresentesPage({
                 aparecendo mês a mês — começamos pelo essencial e vamos
                 abrindo o resto como um jogo em equipa.
               </p>
-              <p className="mt-4 inline-flex max-w-full flex-wrap items-center gap-2 rounded-full bg-canvas px-3 py-2 text-xs font-medium text-ocean-deep ring-1 ring-border sm:px-4 sm:text-sm">
-                <Calendar className="h-4 w-4" aria-hidden />
-                Calendário ativo:{" "}
-                <span className="font-semibold text-ink">{month}</span>
-              </p>
+              <div className="mt-4 space-y-1">
+                <p className="inline-flex max-w-full flex-wrap items-center gap-2 rounded-full bg-canvas px-3 py-2 text-xs font-medium text-ocean-deep ring-1 ring-border sm:px-4 sm:text-sm">
+                  <Calendar className="h-4 w-4 shrink-0" aria-hidden />
+                  Mês ativo (São Paulo):{" "}
+                  <span className="font-semibold text-ink">{month}</span>
+                </p>
+                <p className="text-xs leading-snug text-muted">
+                  A liberação dos presentes compara com o mês civil em{" "}
+                  <strong className="text-ink">America/São Paulo</strong>.
+                </p>
+              </div>
             </div>
             <CoupleMosaic paths={hero} />
           </div>

@@ -33,10 +33,7 @@ export async function reserveGift(
   }
 
   const { giftId, message, purchaseEstimate, isSurprise } = parsed.data;
-  const dateStr =
-    purchaseEstimate instanceof Date && !Number.isNaN(purchaseEstimate.getTime())
-      ? purchaseEstimate.toISOString().slice(0, 10)
-      : null;
+  const dateStr = purchaseEstimate ?? null;
 
   const { data, error } = await supabase.rpc("reserve_gift", {
     p_gift_id: giftId,

@@ -1,4 +1,5 @@
 import { giftStatusLabel } from "@/components/gift-status-label";
+import { formatDateTimePtBrInAppTz } from "@/lib/app-timezone";
 import { createClient } from "@/lib/supabase/server";
 import type { Gift, ReservationRow } from "@/lib/types";
 import Link from "next/link";
@@ -83,7 +84,7 @@ export default async function ContaPage() {
                 </p>
               ) : null}
               <p className="mt-2 text-xs text-zinc-500">
-                Expira: {new Date(r.expires_at).toLocaleString("pt-PT")}
+                Expira: {formatDateTimePtBrInAppTz(r.expires_at)}
                 {r.is_surprise ? " · Surpresa" : ""}
               </p>
             </li>

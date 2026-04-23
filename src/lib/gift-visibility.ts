@@ -1,6 +1,8 @@
-/** Formato YYYY-MM para comparar com `release_month`. */
+import { currentMonthKeyInAppTz } from "@/lib/app-timezone";
+
+/** Formato YYYY-MM para comparar com `release_month` (mês civil em America/Sao_Paulo). */
 export function currentMonthKey(d = new Date()): string {
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+  return currentMonthKeyInAppTz(d);
 }
 
 export function isGiftUnlocked(releaseMonth: string | null, status: string): boolean {
