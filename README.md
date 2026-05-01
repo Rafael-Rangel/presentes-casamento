@@ -42,6 +42,12 @@ Atalho: `SUPABASE_PROJECT_REF=... SUPABASE_DB_PASSWORD=... bash scripts/supabase
 
 Equivalente rápido sem histórico de migrações: `npm run db:remote:schema` (carrega só `schema.sql`).
 
+**Automação local (Postgres):** em [`.env.example`](.env.example) define `DATABASE_URL` **ou** `SUPABASE_PROJECT_REF` + `SUPABASE_DB_PASSWORD` (password da base no dashboard). Depois:
+
+1. `npm run db:sync` — aplica [`supabase/schema.sql`](supabase/schema.sql) e [`supabase/seed_mock_demo.sql`](supabase/seed_mock_demo.sql). **Só** se a BD estiver vazia ou aceitares reaplicar o DDL completo.
+2. `npm run db:seed` — só o [`seed_mock_demo.sql`](supabase/seed_mock_demo.sql) (BD que já tem schema / evita “already exists”).
+3. `npm run db:verify` — contagens em `gifts`, `guests`, `reservations`, `profiles` e bucket `gift-images`.
+
 Se a BD **já foi criada** com `schema.sql` no Editor, `db push` pode falhar com “already exists”. Nesse caso continua só com SQL Editor + seed, ou faz *baseline*/`migration repair` [na documentação Supabase](https://supabase.com/docs/guides/cli/managing-environments).
 
 **Nota:** `login` / `link` usam conta Supabase; chaves tipo `sb_publishable_` / `sb_secret_` continuam apenas no `.env.local` para a Next app.

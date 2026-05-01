@@ -12,6 +12,9 @@
     "supabase": "supabase",
     "db:link": "supabase link",
     "db:push": "supabase db push",
+    "db:sync": "node scripts/db-sync.mjs",
+    "db:seed": "node scripts/db-sync.mjs --seed-only",
+    "db:verify": "node scripts/db-verify.mjs",
     "db:remote:schema": "supabase db query --linked -f supabase/schema.sql",
     "db:remote:seed": "supabase db query --linked -f supabase/seed_mock_demo.sql",
     "db:types": "mkdir -p src/types && supabase gen types typescript --linked --schema public > src/types/database.types.ts"
@@ -34,8 +37,10 @@
     "@types/nodemailer": "^8.0.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv": "^16.4.7",
     "eslint": "^9",
     "eslint-config-next": "16.2.4",
+    "pg": "^8.20.0",
     "supabase": "^2.93.1",
     "tailwindcss": "^4",
     "typescript": "^5"

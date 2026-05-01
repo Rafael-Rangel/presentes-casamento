@@ -7,17 +7,71 @@
 
 BEGIN;
 
--- Se `gifts` existir sem estas colunas (BD antiga ou migração incompleta), acrescenta antes do DELETE.
-ALTER TABLE public.gifts ADD COLUMN IF NOT EXISTS store_url text;
-ALTER TABLE public.gifts ADD COLUMN IF NOT EXISTS image_url text;
-ALTER TABLE public.gifts ADD COLUMN IF NOT EXISTS release_month text;
-ALTER TABLE public.gifts ADD COLUMN IF NOT EXISTS accent_color text NOT NULL DEFAULT '#6366f1';
+-- Bases antigas: garantir tipos e colunas de `gifts` como em schema.sql (antes do INSERT).
+DO $ensure_gifts_schema$
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_catalog.pg_type t JOIN pg_catalog.pg_namespace n ON n.oid = t.typnamespace WHERE n.nspname = 'public' AND t.typname = 'gift_priority') THEN
+    CREATE TYPE public.gift_priority AS ENUM ('essential', 'high', 'normal');
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM pg_catalog.pg_type t JOIN pg_catalog.pg_namespace n ON n.oid = t.typnamespace WHERE n.nspname = 'public' AND t.typname = 'gift_status') THEN
+    CREATE TYPE public.gift_status AS ENUM ('available', 'reserved', 'confirmed', 'coming_soon');
+  END IF;
+END;
+$ensure_gifts_schema$;
 
-DELETE FROM public.gifts
-WHERE store_url LIKE 'https://seed-presentes.example/%';
+-- Se `release_month` existir como `date` (schema antigo), passar para text como em schema.sql.
+DO $fix_release$
+BEGIN
+  IF EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_schema = 'public' AND table_name = 'gifts' AND column_name = 'release_month'
+      AND udt_name = 'date'
+  ) THEN
+    ALTER TABLE public.gifts ALTER COLUMN release_month TYPE text USING to_char(release_month, 'YYYY-MM');
+  END IF;
+  -- schema.sql: release_month é nullable; legado por vezes NOT NULL
+  IF EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_schema = 'public' AND table_name = 'gifts' AND column_name = 'release_month' AND is_nullable = 'NO'
+  ) THEN
+    ALTER TABLE public.gifts ALTER COLUMN release_month DROP NOT NULL;
+  END IF;
+END;
+$fix_release$;
 
-DELETE FROM public.guests
-WHERE slug LIKE 'seedpc-%';
+-- Schema antigo por vezes tinha `price_estimate` NOT NULL em paralelo com `estimated_price`.
+DO $legacy_price$
+BEGIN
+  IF EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_schema = 'public' AND table_name = 'gifts' AND column_name = 'price_estimate'
+  ) THEN
+    EXECUTE 'ALTER TABLE public.gifts ALTER COLUMN price_estimate DROP NOT NULL';
+  END IF;
+END;
+$legacy_price$;
+
+-- Colunas em falta + limpezas num só bloco PL/pgSQL (evita falhas no DELETE quando a API
+-- remota executa fora de ordem ou analisa o DELETE antes dos ALTER).
+DO $seed_prep$
+BEGIN
+  EXECUTE 'ALTER TABLE public.gifts ADD COLUMN IF NOT EXISTS description text NOT NULL DEFAULT ''''''''';
+  EXECUTE 'ALTER TABLE public.gifts ADD COLUMN IF NOT EXISTS estimated_price numeric(12, 2)';
+  EXECUTE 'ALTER TABLE public.gifts ADD COLUMN IF NOT EXISTS category text NOT NULL DEFAULT ''''''''';
+  EXECUTE 'ALTER TABLE public.gifts ADD COLUMN IF NOT EXISTS priority public.gift_priority NOT NULL DEFAULT ''normal''::public.gift_priority';
+  EXECUTE 'ALTER TABLE public.gifts ADD COLUMN IF NOT EXISTS status public.gift_status NOT NULL DEFAULT ''available''::public.gift_status';
+  EXECUTE 'ALTER TABLE public.gifts ADD COLUMN IF NOT EXISTS release_month text';
+  EXECUTE 'ALTER TABLE public.gifts ADD COLUMN IF NOT EXISTS store_url text';
+  EXECUTE 'ALTER TABLE public.gifts ADD COLUMN IF NOT EXISTS image_url text';
+  EXECUTE 'ALTER TABLE public.gifts ADD COLUMN IF NOT EXISTS accent_color text NOT NULL DEFAULT ''#6366f1''';
+  EXECUTE 'ALTER TABLE public.gifts ADD COLUMN IF NOT EXISTS created_at timestamptz NOT NULL DEFAULT now()';
+  EXECUTE 'ALTER TABLE public.gifts ADD COLUMN IF NOT EXISTS updated_at timestamptz NOT NULL DEFAULT now()';
+  DELETE FROM public.gifts
+  WHERE store_url IS NOT NULL AND store_url LIKE 'https://seed-presentes.example/%';
+  DELETE FROM public.guests
+  WHERE slug LIKE 'seedpc-%';
+END;
+$seed_prep$;
 
 INSERT INTO public.guests (slug, display_name, email, phone, notes) VALUES
   ('seedpc-ines-martins', 'Inês Martins', 'ines.martins@exemplo.pt', '+351 913 204 881', 'Amiga da noiva — universidade'),
