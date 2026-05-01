@@ -7,6 +7,12 @@
 
 BEGIN;
 
+-- Se `gifts` existir sem estas colunas (BD antiga ou migração incompleta), acrescenta antes do DELETE.
+ALTER TABLE public.gifts ADD COLUMN IF NOT EXISTS store_url text;
+ALTER TABLE public.gifts ADD COLUMN IF NOT EXISTS image_url text;
+ALTER TABLE public.gifts ADD COLUMN IF NOT EXISTS release_month text;
+ALTER TABLE public.gifts ADD COLUMN IF NOT EXISTS accent_color text NOT NULL DEFAULT '#6366f1';
+
 DELETE FROM public.gifts
 WHERE store_url LIKE 'https://seed-presentes.example/%';
 
