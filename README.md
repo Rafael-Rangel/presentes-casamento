@@ -28,15 +28,23 @@ Rotas principais: `/` (três entradas), `/presentes` (lista pública), `/convite
 
 ### Supabase CLI (opcional)
 
-Na raiz do repo já existe `supabase/config.toml` (`supabase init`). Para ligar ao projeto alojado:
+Na raiz existe `supabase/config.toml`. As migrações em [`supabase/migrations/`](supabase/migrations/) incluem **`20260222000000_initial_schema.sql`** (baseline = conteúdo de `schema.sql`) e patches posteriores (convidados, expiração, storage).
 
-1. Instala a CLI: [Supabase CLI](https://supabase.com/docs/guides/cli) ou `npx supabase@latest`.
-2. `npx supabase login` (abre o browser).
-3. `npx supabase link --project-ref nomquqlgbmtbvtepeotz` (substitui pelo teu *project ref*, o subdomínio de `https://REF.supabase.co`). O comando pede a **database password** (Dashboard → *Project Settings* → *Database* — não é a API secret key).
+Num **projeto novo** (BD vazia ou sem estas tabelas):
 
-**Nota:** a CLI e `supabase db remote commit` usam sobretudo as chaves **legacy** (`anon` / `service_role` em JWT). As chaves novas (`sb_publishable_` / `sb_secret_`) funcionam na app Next com `createClient`; para a CLI, se algo falhar, usa as chaves do separador **Legacy API Keys** no dashboard.
+1. [Supabase CLI](https://supabase.com/docs/guides/cli): `npm install` já traz `supabase` em devDependencies ou usa `npx supabase`.
+2. `npx supabase login` (abre o browser com token da conta Supabase).
+3. `npx supabase link --project-ref SEU_REF --password SUA_POSTGRES_PASSWORD` (*Settings* → *Database* → password da BD; **não** é `anon`/`service_role`. Podes usar variável `$SUPABASE_DB_PASSWORD` não versionada.)
+4. `npm run db:push` — aplica migrações em ordem ao remoto.
+5. Opcional — dados fictícios: `npm run db:remote:seed` (precisa `link`; ou cola [`seed_mock_demo.sql`](supabase/seed_mock_demo.sql) no SQL Editor).
 
-Se a base **já tiver tabelas** criadas à mão, não corras `schema.sql` outra vez sem rever conflitos. Podes alinhar o estado remoto com `npx supabase db pull` (gera migrações a partir do remoto) ou continuar a gerir o DDL pelo SQL Editor.
+Atalho: `SUPABASE_PROJECT_REF=... SUPABASE_DB_PASSWORD=... bash scripts/supabase-link-push.sh` faz *link* + *db push* (não faz seed).
+
+Equivalente rápido sem histórico de migrações: `npm run db:remote:schema` (carrega só `schema.sql`).
+
+Se a BD **já foi criada** com `schema.sql` no Editor, `db push` pode falhar com “already exists”. Nesse caso continua só com SQL Editor + seed, ou faz *baseline*/`migration repair` [na documentação Supabase](https://supabase.com/docs/guides/cli/managing-environments).
+
+**Nota:** `login` / `link` usam conta Supabase; chaves tipo `sb_publishable_` / `sb_secret_` continuam apenas no `.env.local` para a Next app.
 
 ---
 
