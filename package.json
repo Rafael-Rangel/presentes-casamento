@@ -11,6 +11,8 @@
     "lint": "eslint",
     "supabase": "supabase",
     "db:link": "supabase link",
+    "db:remote:schema": "supabase db query --linked -f supabase/schema.sql",
+    "db:remote:seed": "supabase db query --linked -f supabase/seed_mock_demo.sql",
     "db:types": "mkdir -p src/types && supabase gen types typescript --linked --schema public > src/types/database.types.ts"
   },
   "dependencies": {
