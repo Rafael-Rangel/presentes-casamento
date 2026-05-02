@@ -141,9 +141,10 @@ Implementado: função SQL `run_expire_stale_reservations()` (ver `schema.sql` /
 
 ### Web Push
 
-- Gerar par de chaves **VAPID**; guardar `NEXT_PUBLIC_VAPID_PUBLIC_KEY` (browser subscreve) e `VAPID_PRIVATE_KEY` (só servidor).
-- Cliente: `serviceWorker` + `pushManager.subscribe`.
-- Servidor: biblioteca **web-push** para `sendNotification` com o objeto `subscription` guardado (idealmente na tabela `push_subscriptions`).
+Implementado: tabela `push_subscriptions`, `public/sw.js`, UI em `/conta`, rotas `POST`/`DELETE /api/push/subscribe`, `POST /api/push/test`, [`src/lib/push-notify.ts`](src/lib/push-notify.ts) com **web-push** + VAPID. Após reserva, envia push se VAPID estiver definido.
+
+- `npx web-push generate-vapid-keys` → `NEXT_PUBLIC_VAPID_PUBLIC_KEY` + `VAPID_PRIVATE_KEY` (Netlify / `.env.local`).
+- Migração: [`supabase/migrations/20260504100000_push_subscriptions.sql`](supabase/migrations/20260504100000_push_subscriptions.sql).
 
 ### PWA
 

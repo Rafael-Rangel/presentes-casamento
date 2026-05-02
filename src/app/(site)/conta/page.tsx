@@ -1,3 +1,4 @@
+import { PushNotificationSettings } from "@/components/push-notification-settings";
 import { giftStatusLabel } from "@/components/gift-status-label";
 import { formatDateTimePtBrInAppTz } from "@/lib/app-timezone";
 import { createClient } from "@/lib/supabase/server";
@@ -47,6 +48,10 @@ export default async function ContaPage() {
           nome, telefone e como conheces os noivos.
         </p>
       </div>
+
+      <PushNotificationSettings
+        vapidPublicKey={process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY}
+      />
 
       {error ? (
         <p className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-800 dark:border-red-900 dark:bg-red-950 dark:text-red-200">

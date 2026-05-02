@@ -83,6 +83,19 @@ CREATE TABLE public.reservations (
 CREATE INDEX reservations_user_id_idx ON public.reservations (user_id);
 CREATE INDEX reservations_gift_id_idx ON public.reservations (gift_id);
 
+-- Web Push (subscrições por dispositivo; envio no servidor com web-push + VAPID)
+CREATE TABLE public.push_subscriptions (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  profile_id uuid NOT NULL REFERENCES public.profiles (id) ON DELETE CASCADE,
+  endpoint text NOT NULL,
+  p256dh text NOT NULL,
+  auth text NOT NULL,
+  created_at timestamptz NOT NULL DEFAULT now(),
+  CONSTRAINT push_subscriptions_endpoint_key UNIQUE (endpoint)
+);
+
+CREATE INDEX push_subscriptions_profile_id_idx ON public.push_subscriptions (profile_id);
+
 -- Trigger: novo utilizador em auth.users -> perfil guest
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS trigger
@@ -181,6 +194,7 @@ ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.gifts ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.reservations ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.guests ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.push_subscriptions ENABLE ROW LEVEL SECURITY;
 
 -- Perfis: ver o próprio; admins veem todos
 CREATE POLICY "profiles_select_own"
@@ -260,6 +274,49 @@ CREATE POLICY "reservations_update_admin"
     EXISTS (
       SELECT 1 FROM public.profiles p
       WHERE p.auth_user_id = auth.uid() AND p.role = 'admin'
+    )
+  );
+
+-- Push: só o dono do perfil
+CREATE POLICY "push_subscriptions_select_own"
+  ON public.push_subscriptions FOR SELECT TO authenticated
+  USING (
+    EXISTS (
+      SELECT 1 FROM public.profiles p
+      WHERE p.id = push_subscriptions.profile_id AND p.auth_user_id = auth.uid()
+    )
+  );
+
+CREATE POLICY "push_subscriptions_insert_own"
+  ON public.push_subscriptions FOR INSERT TO authenticated
+  WITH CHECK (
+    EXISTS (
+      SELECT 1 FROM public.profiles p
+      WHERE p.id = push_subscriptions.profile_id AND p.auth_user_id = auth.uid()
+    )
+  );
+
+CREATE POLICY "push_subscriptions_update_own"
+  ON public.push_subscriptions FOR UPDATE TO authenticated
+  USING (
+    EXISTS (
+      SELECT 1 FROM public.profiles p
+      WHERE p.id = push_subscriptions.profile_id AND p.auth_user_id = auth.uid()
+    )
+  )
+  WITH CHECK (
+    EXISTS (
+      SELECT 1 FROM public.profiles p
+      WHERE p.id = push_subscriptions.profile_id AND p.auth_user_id = auth.uid()
+    )
+  );
+
+CREATE POLICY "push_subscriptions_delete_own"
+  ON public.push_subscriptions FOR DELETE TO authenticated
+  USING (
+    EXISTS (
+      SELECT 1 FROM public.profiles p
+      WHERE p.id = push_subscriptions.profile_id AND p.auth_user_id = auth.uid()
     )
   );
 

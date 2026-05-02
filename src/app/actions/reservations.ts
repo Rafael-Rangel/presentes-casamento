@@ -3,6 +3,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { getSiteUrl } from "@/lib/site-url";
 import { sendMail } from "@/lib/mail";
+import { isPushConfigured, sendPushToProfileSafe } from "@/lib/push-notify";
 import { isGuestProfileComplete } from "@/lib/profile-complete";
 import { guestProfileSchema } from "@/lib/validations/profile";
 import { reserveGiftSchema } from "@/lib/validations/reservation";
@@ -39,7 +40,7 @@ export async function reserveGift(
   const { data: profile, error: profileErr } = await supabase
     .from("profiles")
     .select(
-      "full_name, phone, relationship_note, profile_completed_at, marketing_opt_in",
+      "id, full_name, phone, relationship_note, profile_completed_at, marketing_opt_in",
     )
     .eq("auth_user_id", user.id)
     .maybeSingle();
@@ -49,6 +50,7 @@ export async function reserveGift(
   }
 
   const profRow = profile as {
+    id: string;
     full_name: string;
     phone: string | null;
     relationship_note: string | null;
@@ -148,6 +150,16 @@ export async function reserveGift(
     } else if (mailResult.sent === false) {
       console.warn("[reserveGift] SMTP não configurado:", mailResult.reason);
     }
+  }
+
+  if (isPushConfigured()) {
+    const siteUrlPush = await getSiteUrl();
+    void sendPushToProfileSafe(profRow.id, {
+      title: "Reserva confirmada",
+      body: `Reservaste «${giftTitle}». Abre para ver em Minhas reservas.`,
+      url: `${siteUrlPush}/conta`,
+      tag: `reservation-${giftId}`,
+    });
   }
 
   revalidatePath("/presentes");

@@ -138,8 +138,56 @@ export default function AdminDefinicoesPage() {
               Notificações no telemóvel (Web Push)
             </h2>
             <p className="mt-2 text-sm leading-relaxed text-muted">
-              Ainda não está ligado nesta versão. Próximo passo: service worker +
-              chaves VAPID + permissão do browser.
+              Já integrado: service worker em{" "}
+              <code className="rounded bg-canvas px-1 font-mono text-[0.65rem]">
+                /sw.js
+              </code>
+              , envio com{" "}
+              <code className="rounded bg-canvas px-1 font-mono text-xs">
+                web-push
+              </code>{" "}
+              e subscrições na base de dados. Gera um par VAPID com{" "}
+              <code className="rounded bg-canvas px-1 font-mono text-[0.65rem]">
+                npx web-push generate-vapid-keys
+              </code>{" "}
+              e define nas variáveis de ambiente (Netlify /{" "}
+              <code className="font-mono text-xs">.env.local</code>):
+            </p>
+            <ul className="mt-3 space-y-1.5 text-sm text-muted">
+              <li>
+                <code className="font-mono text-xs text-ocean-deep">
+                  NEXT_PUBLIC_VAPID_PUBLIC_KEY
+                </code>{" "}
+                — chave pública (browser)
+              </li>
+              <li>
+                <code className="font-mono text-xs text-ocean-deep">
+                  VAPID_PRIVATE_KEY
+                </code>{" "}
+                — só servidor; nunca{" "}
+                <code className="font-mono text-xs">NEXT_PUBLIC_*</code>
+              </li>
+              <li className="text-xs">
+                Opcional:{" "}
+                <code className="font-mono text-[0.65rem]">VAPID_SUBJECT</code>{" "}
+                (ex.{" "}
+                <code className="font-mono text-[0.65rem]">
+                  mailto:casamento@…
+                </code>
+                ); se omitires, usa <code className="font-mono text-[0.65rem]">EMAIL_FROM</code>.
+              </li>
+            </ul>
+            <p className="mt-3 text-sm leading-relaxed text-muted">
+              Os convidados activam em{" "}
+              <Link
+                href="/conta"
+                className="font-medium text-ocean underline underline-offset-2"
+              >
+                Minhas reservas
+              </Link>
+              . Em produção é preciso{" "}
+              <strong className="text-ink">HTTPS</strong>. No iPhone o Safari tem
+              push web limitado (por vezes só com PWA no ecrã inicial).
             </p>
           </div>
         </div>
