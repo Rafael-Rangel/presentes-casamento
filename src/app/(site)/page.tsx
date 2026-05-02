@@ -40,10 +40,10 @@ export default function Home() {
               </span>
             </p>
 
-            <div className="mt-8 grid gap-3 sm:mt-10 sm:grid-cols-2">
+            <div className="mt-8 sm:mt-10">
               <Link
                 href="/presentes"
-                className="group flex min-h-[4.5rem] touch-manipulation items-start gap-3 rounded-2xl border border-border bg-paper/90 p-4 shadow-sm ring-1 ring-border/60 transition active:scale-[0.99] sm:min-h-0 sm:gap-4 sm:p-5 sm:hover:-translate-y-0.5 sm:hover:border-ocean/30 sm:hover:shadow-lg"
+                className="group flex max-w-md min-h-[4.5rem] touch-manipulation items-start gap-3 rounded-2xl border border-border bg-paper/90 p-4 shadow-sm ring-1 ring-border/60 transition active:scale-[0.99] sm:min-h-0 sm:gap-4 sm:p-5 sm:hover:-translate-y-0.5 sm:hover:border-ocean/30 sm:hover:shadow-lg"
               >
                 <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-ocean/10 text-ocean ring-1 ring-ocean/15">
                   <Gift className="h-6 w-6" strokeWidth={1.5} aria-hidden />
@@ -57,23 +57,6 @@ export default function Home() {
                   </span>
                 </span>
               </Link>
-
-              <Link
-                href="/admin/login"
-                className="group flex min-h-[4.5rem] touch-manipulation items-start gap-3 rounded-2xl border border-border bg-gradient-to-br from-paper to-canvas/80 p-4 shadow-sm transition active:scale-[0.99] sm:min-h-0 sm:gap-4 sm:p-5 sm:hover:-translate-y-0.5 sm:hover:border-terracotta/35 sm:hover:shadow-md"
-              >
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-terracotta/10 text-terracotta ring-1 ring-terracotta/20">
-                  <Heart className="h-6 w-6" strokeWidth={1.5} aria-hidden />
-                </span>
-                <span>
-                  <span className="block font-display text-lg font-medium text-ink">
-                    Área dos noivos
-                  </span>
-                  <span className="mt-1 block text-sm leading-snug text-muted">
-                    Convidados, presentes e definições do site.
-                  </span>
-                </span>
-              </Link>
             </div>
 
             <div className="mt-5 flex items-start gap-3 rounded-2xl border border-dashed border-ocean/25 bg-ocean/5 px-3 py-3 text-sm leading-snug text-muted sm:mt-6 sm:px-4">
@@ -83,7 +66,7 @@ export default function Home() {
                 <code className="rounded bg-paper px-1.5 py-0.5 text-xs text-ink ring-1 ring-border">
                   /convite/…
                 </code>{" "}
-                criado no painel — guarda o teu.
+                — guarda o teu para acederes à lista com o teu nome.
               </p>
             </div>
           </div>

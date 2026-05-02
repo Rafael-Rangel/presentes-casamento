@@ -1,7 +1,7 @@
 "use client";
 
 import { signOut } from "@/app/actions/auth";
-import { Gift, LogIn, LogOut, Sparkles } from "lucide-react";
+import { Gift, LogIn, LogOut } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -29,15 +29,6 @@ export function HeaderNavLinks({ isAuthenticated }: Props) {
         <Gift className="h-4 w-4 shrink-0 text-ocean" strokeWidth={1.75} aria-hidden />
         Presentes
       </Link>
-      {!onPresentes && (
-        <Link
-          href="/admin"
-          className={`${navLink} text-ocean-deep hover:bg-ocean/10`}
-        >
-          <Sparkles className="h-4 w-4 shrink-0 text-terracotta" strokeWidth={1.75} aria-hidden />
-          Noivos
-        </Link>
-      )}
       {isAuthenticated ? (
         <>
           {!onPresentes && (

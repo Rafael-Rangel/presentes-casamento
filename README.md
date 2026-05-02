@@ -13,7 +13,7 @@ Documento **enxuto**: stack, integrações e modelo de dados. Não descreve a im
 
 5. Instala dependências e arranca: `npm install` e `npm run dev`.
 
-Rotas principais: `/` (três entradas), `/presentes` (lista pública), `/convite/[slug]` (convite por convidado), `/admin/login` + `/admin` (painel: convidados, presentes, definições). Reservas: `/login`, `/conta`.
+Rotas principais: `/` (hero + atalho para presentes; sem link público ao painel), `/presentes`, `/convite/[slug]`. Painel noivos: `/admin/login` + `/admin` (URL direta, não listada no site convidados). Reservas: `/login`, `/conta`.
 
 **SMTP (Gmail):** podes usar `smtp.gmail.com` e porta `587` com **palavra-passe de aplicação** — nunca commits essa palavra-passe; se a expuseres, revoga no Google e gera outra.
 
