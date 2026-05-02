@@ -2,6 +2,7 @@ import { giftPriorityLabel } from "@/components/gift-priority-label";
 import { giftStatusLabel } from "@/components/gift-status-label";
 import { createClient } from "@/lib/supabase/server";
 import { couplePhotoForKey } from "@/lib/couple-photos";
+import { isGuestProfileComplete } from "@/lib/profile-complete";
 import type { Gift } from "@/lib/types";
 import { ExternalLink } from "lucide-react";
 import Image from "next/image";
@@ -33,7 +34,39 @@ export default async function PresenteDetalhePage({
     data: { user },
   } = await supabase.auth.getUser();
 
-  const canReserve = gift.status === "available" && Boolean(user);
+  let profileComplete = true;
+  let defaultFullName = "";
+  let defaultPhone = "";
+  let defaultRelationship = "";
+  let defaultMarketingOptIn = false;
+
+  if (user) {
+    const { data: prof } = await supabase
+      .from("profiles")
+      .select(
+        "full_name, phone, relationship_note, profile_completed_at, marketing_opt_in",
+      )
+      .eq("auth_user_id", user.id)
+      .maybeSingle();
+
+    const row = prof as {
+      full_name: string;
+      phone: string | null;
+      relationship_note: string | null;
+      profile_completed_at: string | null;
+      marketing_opt_in: boolean | null;
+    } | null;
+
+    if (row) {
+      defaultFullName = row.full_name ?? "";
+      defaultPhone = row.phone ?? "";
+      defaultRelationship = row.relationship_note ?? "";
+      defaultMarketingOptIn = Boolean(row.marketing_opt_in);
+      profileComplete = isGuestProfileComplete(row);
+    }
+  }
+
+  const giftAvailable = gift.status === "available";
 
   return (
     <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-8 px-3 py-8 pb-[max(2rem,env(safe-area-inset-bottom))] sm:gap-10 sm:px-6 sm:py-10">
@@ -123,13 +156,25 @@ export default async function PresenteDetalhePage({
       <section className="space-y-4">
         {!user ? (
           <p className="rounded-xl border border-border bg-canvas/80 px-4 py-3 text-sm text-muted">
-            <Link href="/login" className="font-semibold text-ocean underline">
+            <Link
+              href={`/login?redirect=${encodeURIComponent(`/presentes/${gift.id}`)}`}
+              className="font-semibold text-ocean underline"
+            >
               Inicia sessão
             </Link>{" "}
             para reservares este presente.
           </p>
-        ) : null}
-        <ReserveGiftForm giftId={gift.id} canReserve={canReserve} />
+        ) : (
+          <ReserveGiftForm
+            giftId={gift.id}
+            giftAvailable={giftAvailable}
+            profileComplete={profileComplete}
+            defaultFullName={defaultFullName}
+            defaultPhone={defaultPhone}
+            defaultRelationship={defaultRelationship}
+            defaultMarketingOptIn={defaultMarketingOptIn}
+          />
+        )}
       </section>
     </main>
   );

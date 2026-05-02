@@ -23,15 +23,17 @@ export async function sendMail(opts: {
       ok: true,
       sent: false,
       reason:
-        "SMTP não configurado (SMTP_HOST, SMTP_USER, SMTP_PASSWORD, EMAIL_FROM).",
+        "SMTP não configurado (define SMTP_HOST, SMTP_USER, SMTP_PASSWORD e opcionalmente EMAIL_FROM).",
     };
   }
 
   try {
+    const secure = port === 465;
     const transporter = nodemailer.createTransport({
       host,
       port,
-      secure: port === 465,
+      secure,
+      requireTLS: !secure,
       auth: { user, pass },
     });
 

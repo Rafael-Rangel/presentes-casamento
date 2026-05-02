@@ -151,7 +151,7 @@ INSERT INTO public.gifts (
     'essential',
     'available',
     NULL,
-    'https://images.unsplash.com/photo-1556911220-e15b29be8de0?auto=format&w=900&q=80',
+    'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&w=900&q=80',
     'https://seed-presentes.example/cozinha/tachos-inox',
     '#2d5a75'
   ),
@@ -175,7 +175,7 @@ INSERT INTO public.gifts (
     'high',
     'available',
     '2026-03',
-    'https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e7?auto=format&w=900&q=80',
+    'https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?auto=format&w=900&q=80',
     'https://seed-presentes.example/cozinha/cafe',
     '#4a3728'
   ),
@@ -295,7 +295,7 @@ INSERT INTO public.gifts (
     'normal',
     'available',
     '2026-04',
-    'https://images.unsplash.com/photo-1585516000269-afa883bee6d7?auto=format&w=900&q=80',
+    'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&w=900&q=80',
     'https://seed-presentes.example/cozinha/grelhador',
     '#e07b39'
   ),
@@ -343,7 +343,7 @@ INSERT INTO public.gifts (
     'normal',
     'available',
     '2026-09',
-    'https://images.unsplash.com/photo-1485965120184-e220f971d3f1?auto=format&w=900&q=80',
+    'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&w=900&q=80',
     'https://seed-presentes.example/lazer/bicicletas',
     '#166534'
   ),
@@ -367,7 +367,7 @@ INSERT INTO public.gifts (
     'normal',
     'available',
     '2026-11',
-    'https://images.unsplash.com/photo-1584990347449-a8fcfbc02c84?auto=format&w=900&q=80',
+    'https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?auto=format&w=900&q=80',
     'https://seed-presentes.example/cozinha/ferro-fundido',
     '#7f1d1d'
   ),
@@ -451,7 +451,7 @@ INSERT INTO public.gifts (
     'normal',
     'available',
     '2027-06',
-    'https://images.unsplash.com/photo-1600166898405-6e16aa60fe6e?auto=format&w=900&q=80',
+    'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&w=900&q=80',
     'https://seed-presentes.example/decor/tapete',
     '#92400e'
   ),
@@ -463,7 +463,7 @@ INSERT INTO public.gifts (
     'high',
     'available',
     NULL,
-    'https://images.unsplash.com/photo-1585516000269-afa883bee6d7?auto=format&w=900&q=80',
+    'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&w=900&q=80',
     'https://seed-presentes.example/cozinha/air-fryer',
     '#ea580c'
   ),
@@ -487,7 +487,7 @@ INSERT INTO public.gifts (
     'normal',
     'available',
     NULL,
-    'https://images.unsplash.com/photo-1556911220-e15b29be8de0?auto=format&w=900&q=80',
+    'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&w=900&q=80',
     'https://seed-presentes.example/cozinha/tigelas-vidro',
     '#64748b'
   ),
@@ -523,7 +523,7 @@ INSERT INTO public.gifts (
     'normal',
     'available',
     '2026-07',
-    'https://images.unsplash.com/photo-1416879595882-3373a0480a7f?auto=format&w=900&q=80',
+    'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&w=900&q=80',
     'https://seed-presentes.example/jardim/horta-vertical',
     '#15803d'
   ),
@@ -583,7 +583,7 @@ INSERT INTO public.gifts (
     'essential',
     'available',
     NULL,
-    'https://images.unsplash.com/photo-1580487136168-627369599227?auto=format&w=900&q=80',
+    'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&w=900&q=80',
     'https://seed-presentes.example/escritorio/cadeira-ergonomica',
     '#44403c'
   ),
@@ -715,7 +715,7 @@ INSERT INTO public.gifts (
     'high',
     'available',
     NULL,
-    'https://images.unsplash.com/photo-1606800052052-a00874459a12?auto=format&w=900&q=80',
+    'https://images.unsplash.com/photo-1600210491369-e753d80a41f3?auto=format&w=900&q=80',
     'https://seed-presentes.example/mesa/aparelho-jantar',
     '#ca8a04'
   ),
@@ -727,7 +727,7 @@ INSERT INTO public.gifts (
     'essential',
     'available',
     '2026-03',
-    'https://images.unsplash.com/photo-1584990347449-a8fcfbc02c84?auto=format&w=900&q=80',
+    'https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?auto=format&w=900&q=80',
     'https://seed-presentes.example/cozinha/panela-pressao-eletrica',
     '#991b1b'
   ),
@@ -775,7 +775,7 @@ INSERT INTO public.gifts (
     'normal',
     'available',
     NULL,
-    'https://images.unsplash.com/photo-1566127443509-095a994dd83d?auto=format&w=900&q=80',
+    'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&w=900&q=80',
     'https://seed-presentes.example/experiencias/museus',
     '#4f46e5'
   ),
@@ -787,7 +787,7 @@ INSERT INTO public.gifts (
     'normal',
     'available',
     '2026-10',
-    'https://images.unsplash.com/photo-1581148484438-9222ee93a6cb?auto=format&w=900&q=80',
+    'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&w=900&q=80',
     'https://seed-presentes.example/oficina/ferramentas',
     '#ca8a04'
   ),
@@ -811,7 +811,7 @@ INSERT INTO public.gifts (
     'normal',
     'reserved',
     '2026-06',
-    'https://images.unsplash.com/photo-1610701596007-11502814dc1b?auto=format&w=900&q=80',
+    'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?auto=format&w=900&q=80',
     'https://seed-presentes.example/mesa/ceramica-artesanal',
     '#b4532f'
   ),
@@ -835,7 +835,7 @@ INSERT INTO public.gifts (
     'normal',
     'coming_soon',
     '2026-07',
-    'https://images.unsplash.com/photo-1535957007-66f1c558aaca?auto=format&w=900&q=80',
+    'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&w=900&q=80',
     'https://seed-presentes.example/mesa/barril-cerveja',
     '#ca8a04'
   ),
@@ -859,7 +859,7 @@ INSERT INTO public.gifts (
     'normal',
     'available',
     '2026-09',
-    'https://images.unsplash.com/photo-1478720568477-152d9b0e56a4?auto=format&w=900&q=80',
+    'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&w=900&q=80',
     'https://seed-presentes.example/lazer/mini-projetor',
     '#312e81'
   ),

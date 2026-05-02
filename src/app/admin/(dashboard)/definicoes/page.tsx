@@ -60,6 +60,11 @@ export default function AdminDefinicoesPage() {
               Se expuseres a app password em público, revoga-a no Google e gera
               outra.
             </p>
+            <p className="mt-3 text-xs leading-relaxed text-muted">
+              <strong className="text-ink">Volume:</strong> Gmail gratuito limita envios diários;
+              lembretes automáticos e convites em massa podem falhar ou bloquear a conta.
+              Para muitos destinatários, usa um serviço tipo Resend ou SendGrid.
+            </p>
           </div>
         </div>
       </section>
@@ -102,6 +107,22 @@ export default function AdminDefinicoesPage() {
               </code>{" "}
               (ou o <code className="font-mono text-xs">schema.sql</code> completo
               num projeto novo).
+            </p>
+            <p className="mt-3 text-sm leading-relaxed text-muted">
+              Lembretes da lista (opt-in): a função agendada{" "}
+              <code className="rounded bg-canvas px-1 font-mono text-[0.65rem]">
+                netlify/functions/gift-reminders.mjs
+              </code>{" "}
+              corre{" "}
+              <code className="rounded bg-canvas px-1 font-mono text-xs">
+                @daily
+              </code>{" "}
+              e chama{" "}
+              <code className="rounded bg-canvas px-1 font-mono text-xs">
+                /api/cron/gift-reminders
+              </code>
+              . Só envia a perfis com consentimento, sem reservas e no máximo uma vez
+              por semana por pessoa.
             </p>
           </div>
         </div>

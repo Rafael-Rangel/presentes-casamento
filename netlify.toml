@@ -13,3 +13,6 @@
 
 [functions."expire-reservations"]
   schedule = "@hourly"
+
+[functions."gift-reminders"]
+  schedule = "@daily"

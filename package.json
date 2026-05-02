@@ -17,7 +17,12 @@
     "db:verify": "node scripts/db-verify.mjs",
     "db:remote:schema": "supabase db query --linked -f supabase/schema.sql",
     "db:remote:seed": "supabase db query --linked -f supabase/seed_mock_demo.sql",
-    "db:types": "mkdir -p src/types && supabase gen types typescript --linked --schema public > src/types/database.types.ts"
+    "db:types": "mkdir -p src/types && supabase gen types typescript --linked --schema public > src/types/database.types.ts",
+    "deploy:check-env": "node scripts/check-netlify-env.mjs",
+    "deploy:check-env:production": "node scripts/check-netlify-env.mjs --production",
+    "cron:smoke": "node scripts/cron-smoke.mjs",
+    "cron:smoke:reminders-only": "node scripts/cron-smoke.mjs --skip-expire",
+    "generate-secrets": "node scripts/generate-secrets.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.2",

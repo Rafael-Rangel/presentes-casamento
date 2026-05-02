@@ -11,6 +11,11 @@ CREATE TABLE public.profiles (
   auth_user_id uuid NOT NULL REFERENCES auth.users (id) ON DELETE CASCADE,
   full_name text NOT NULL DEFAULT '',
   email text NOT NULL DEFAULT '',
+  phone text NOT NULL DEFAULT '',
+  relationship_note text NOT NULL DEFAULT '',
+  profile_completed_at timestamptz,
+  marketing_opt_in boolean NOT NULL DEFAULT false,
+  last_marketing_email_at timestamptz,
   role public.profile_role NOT NULL DEFAULT 'guest',
   created_at timestamptz NOT NULL DEFAULT now(),
   CONSTRAINT profiles_auth_user_id_key UNIQUE (auth_user_id)
@@ -272,25 +277,25 @@ BEGIN
   FOR r IN
     SELECT id, gift_id
     FROM public.reservations
-    WHERE status = 'reserved'::public.reservation_status
+    WHERE status = 'reserved'
       AND expires_at < now()
   LOOP
     UPDATE public.reservations
-    SET status = 'expired'::public.reservation_status
+    SET status = 'expired'
     WHERE id = r.id;
 
     IF NOT EXISTS (
       SELECT 1
       FROM public.reservations x
       WHERE x.gift_id = r.gift_id
-        AND x.status = 'reserved'::public.reservation_status
+        AND x.status = 'reserved'
     ) THEN
       UPDATE public.gifts
       SET
-        status = 'available'::public.gift_status,
+        status = 'available',
         updated_at = now()
       WHERE id = r.gift_id
-        AND status = 'reserved'::public.gift_status;
+        AND status = 'reserved';
     END IF;
 
     n := n + 1;

@@ -1,4 +1,3 @@
-import { Header } from "@/components/Header";
 import { BRAND_LOGO_ALT, BRAND_LOGO_SRC } from "@/lib/brand";
 import { getSiteUrlSync } from "@/lib/site-url";
 import type { Metadata, Viewport } from "next";
@@ -74,8 +73,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} h-full`}
     >
       <body className="flex min-h-full flex-col touch-manipulation font-sans">
-        <Header />
-        <div className="flex flex-1 flex-col">{children}</div>
+        {children}
       </body>
     </html>
   );

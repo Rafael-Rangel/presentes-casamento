@@ -19,13 +19,23 @@ function GiftImage({
   if (locked) {
     return (
       <div className="relative h-full w-full overflow-hidden bg-ocean-deep">
-        <Image
-          src={fallback}
-          alt=""
-          fill
-          className="object-cover opacity-35 saturate-[0.65]"
-          sizes="(max-width: 768px) 100vw, 33vw"
-        />
+        {gift.image_url ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={gift.image_url}
+            alt=""
+            className="h-full w-full object-cover opacity-40 saturate-[0.75]"
+            loading="lazy"
+          />
+        ) : (
+          <Image
+            src={fallback}
+            alt=""
+            fill
+            className="object-cover opacity-35 saturate-[0.65]"
+            sizes="(max-width: 768px) 100vw, 33vw"
+          />
+        )}
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-gradient-to-b from-paper/85 to-paper/95 p-4 text-center backdrop-blur-[2px]">
           <span
             className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-dashed shadow-inner"

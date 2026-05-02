@@ -36,6 +36,16 @@ export default async function ContaPage() {
           Estado das tuas reservas e datas de expiração (48h após reserva,
           salvo alteração manual no Supabase).
         </p>
+        <p className="mt-3 text-sm">
+          <Link
+            href="/conta/dados"
+            className="font-medium text-ocean underline underline-offset-2"
+          >
+            Os teus dados
+          </Link>
+          {" — "}
+          nome, telefone e como conheces os noivos.
+        </p>
       </div>
 
       {error ? (
