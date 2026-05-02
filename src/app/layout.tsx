@@ -1,4 +1,4 @@
-import { BRAND_LOGO_ALT, BRAND_LOGO_SRC } from "@/lib/brand";
+import { BRAND_FAVICON_PATH, BRAND_LOGO_ALT, BRAND_LOGO_SRC } from "@/lib/brand";
 import { getSiteUrlSync } from "@/lib/site-url";
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Geist, Geist_Mono } from "next/font/google";
@@ -38,13 +38,10 @@ export const metadata: Metadata = {
   description: "Reserva um presente e celebra connosco.",
   icons: {
     icon: [
-      {
-        url: BRAND_LOGO_SRC,
-        type: "image/avif",
-        sizes: "any",
-      },
+      { url: BRAND_FAVICON_PATH, sizes: "any" },
+      { url: BRAND_LOGO_SRC, type: "image/avif", sizes: "any" },
     ],
-    shortcut: [{ url: BRAND_LOGO_SRC, type: "image/avif" }],
+    shortcut: [{ url: BRAND_FAVICON_PATH }],
     apple: [{ url: BRAND_LOGO_SRC, type: "image/avif", sizes: "180x180" }],
   },
   openGraph: {

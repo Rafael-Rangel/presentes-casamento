@@ -2,6 +2,9 @@ import { SignJWT, jwtVerify } from "jose";
 
 export const ADMIN_COOKIE = "casamento_admin";
 
+/** Segundos para JWT + cookie quando "lembrar neste aparelho" (evita o limite anterior de 90 dias). */
+export const ADMIN_REMEMBER_MAX_AGE_SEC = 60 * 60 * 24 * 365 * 100;
+
 function getSecret() {
   const s = process.env.ADMIN_SESSION_SECRET;
   if (!s || s.length < 16) {
@@ -13,12 +16,17 @@ function getSecret() {
 }
 
 export async function signAdminToken(remember: boolean): Promise<string> {
-  const exp = remember ? "90d" : "1d";
-  return new SignJWT({ role: "admin" })
+  const jwt = new SignJWT({ role: "admin" })
     .setProtectedHeader({ alg: "HS256" })
-    .setIssuedAt()
-    .setExpirationTime(exp)
-    .sign(getSecret());
+    .setIssuedAt();
+  if (remember) {
+    jwt.setExpirationTime(
+      Math.floor(Date.now() / 1000) + ADMIN_REMEMBER_MAX_AGE_SEC,
+    );
+  } else {
+    jwt.setExpirationTime("1d");
+  }
+  return jwt.sign(getSecret());
 }
 
 export async function verifyAdminToken(token: string): Promise<boolean> {

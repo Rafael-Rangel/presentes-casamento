@@ -1,3 +1,4 @@
+import { BRAND_LOGO_SRC } from "./src/lib/brand";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
@@ -17,6 +18,9 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "**.cloudinary.com", pathname: "/**" },
       { protocol: "https", hostname: "images.unsplash.com", pathname: "/**" },
     ],
+  },
+  async rewrites() {
+    return [{ source: "/favicon.ico", destination: BRAND_LOGO_SRC }];
   },
   async headers() {
     return [

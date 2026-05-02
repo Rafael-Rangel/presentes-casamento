@@ -1,6 +1,10 @@
 "use server";
 
-import { ADMIN_COOKIE, signAdminToken } from "@/lib/admin-token";
+import {
+  ADMIN_COOKIE,
+  ADMIN_REMEMBER_MAX_AGE_SEC,
+  signAdminToken,
+} from "@/lib/admin-token";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { timingSafeEqual } from "node:crypto";
@@ -16,7 +20,13 @@ function safeCompare(a: string, b: string): boolean {
   return timingSafeEqual(ba, bb);
 }
 
-function useSecureCookies() {
+/** Evita falhas por espaços copiados no painel Netlify / formulário. */
+function readAdminPasswordEnv(): string {
+  const raw = process.env.ADMIN_PASSWORD;
+  return typeof raw === "string" ? raw.trim() : "";
+}
+
+function shouldUseSecureCookies() {
   return (
     process.env.NODE_ENV === "production" ||
     process.env.VERCEL === "1" ||
@@ -28,9 +38,9 @@ export async function loginAdmin(
   _prev: AdminLoginState | null,
   formData: FormData,
 ): Promise<AdminLoginState> {
-  const password = String(formData.get("password") ?? "");
+  const password = String(formData.get("password") ?? "").trim();
   const remember = formData.get("remember") === "on";
-  const expected = process.env.ADMIN_PASSWORD ?? "";
+  const expected = readAdminPasswordEnv();
 
   if (!expected) {
     return {
@@ -46,13 +56,13 @@ export async function loginAdmin(
 
   const token = await signAdminToken(remember);
   const jar = await cookies();
-  const secure = useSecureCookies();
+  const secure = shouldUseSecureCookies();
   jar.set(ADMIN_COOKIE, token, {
     httpOnly: true,
     sameSite: "lax",
     secure,
     path: "/",
-    maxAge: remember ? 60 * 60 * 24 * 90 : 60 * 60 * 24,
+    maxAge: remember ? ADMIN_REMEMBER_MAX_AGE_SEC : 60 * 60 * 24,
   });
 
   const nextRaw = formData.get("redirect");
@@ -65,7 +75,7 @@ export async function loginAdmin(
 
 export async function logoutAdmin(): Promise<void> {
   const jar = await cookies();
-  const secure = useSecureCookies();
+  const secure = shouldUseSecureCookies();
   jar.set(ADMIN_COOKIE, "", {
     httpOnly: true,
     sameSite: "lax",
